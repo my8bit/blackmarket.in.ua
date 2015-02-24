@@ -61,8 +61,11 @@ body.alt g.tick, body.alt
   stroke: white;
 }
 #octocat {
+    width: 48px;
+    margin: 0 auto;
     display: block;
 }
+
 #content {
     font-family: 'PT Sans Narrow', sans-serif;
     display: table;
