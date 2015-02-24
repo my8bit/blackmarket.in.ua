@@ -70,7 +70,17 @@ body.alt g.tick, body.alt
     margin: 0 auto;
     display: block;
 }
-
+.lighter {
+    position: absolute;
+    font-size: x-large;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    color: white;
+}
+body.alt .lighter {
+    color: black;
+}
 #content {
     font-family: 'PT Sans Narrow', sans-serif;
     display: table;
@@ -83,10 +93,18 @@ body.alt g.tick, body.alt
     vertical-align: middle;
     text-align: center;
 }
+body.alt  h1 {
+    color: black;
+}
+body.alt  h1 a {
+    color: black;
+}
+body.alt  h1 a:visited {
+    color: black;
+}
 h2, h1, h3 {
     /* margin-top: 15px; */
     margin: 15px;
-    color: black;
     color: white;
 }
 .dataCursor {
@@ -103,6 +121,13 @@ h3 {
     margin-top: 0; 
     font-size: 20px;
 }
+h1 a:visited {
+    color: white;
+}
+body.alt h1 a:visited {
+    color: #000000;
+}
+
 h5 a,
 h3 a,
 h2 a {
