@@ -1,6 +1,33 @@
 body {
     background-color: black;
 }
+body.alt {
+    background-color: white;
+}
+
+body.alt h2, h1, h3 {
+    color: #000000;
+}
+
+.update-info {
+    color: white;
+    margin-bottom: 10px;
+}
+body.alt .update-info {
+    color: black;
+}
+
+
+body.alt .c3 path,
+body.alt .c3 line {
+    fill: none;
+    stroke: black;
+}
+body.alt .c3-axis,
+body.alt g.tick, body.alt
+.c3-grid {
+    fill: black;
+}
 /* #octocat img {
     border-radius: 50%;
     background-color: white;
