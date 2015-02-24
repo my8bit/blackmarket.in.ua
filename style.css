@@ -13,10 +13,15 @@ body.alt h2, h1, h3 {
     color: white;
     margin-bottom: 10px;
 }
+.update-info a {
+    color: white;
+}
 body.alt .update-info {
     color: black;
 }
-
+body.alt .update-info a {
+    color: black;
+}
 
 body.alt .c3 path,
 body.alt .c3 line {
