@@ -12,6 +12,9 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
         "use strict";
         var dataHandler = function(data) {
                 if (data) {
+                    if (!data.data.length) {
+                        data.data = [[],[],[]];
+                    }
                     data.data[1] = data.data[1].map(function(el) {
                         return el / 4;
                     });

@@ -12,6 +12,9 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
         "use strict";
         var dataHandler = function(data) {
                 if (data) {
+                    if (!data.data.length) {
+                        data.data = [[],[],[]];
+                    }
                     data.data[0].unshift("x");
                     data.data[1].unshift("Курс в $");
                     data.data[2].unshift("Количество");
