@@ -1,27 +1,48 @@
 define("finance.i.ua.provider", ["jquery"], {
     getData: function(callback) {
         "use strict";
-        var ajaxDone = this.ajaxDone;
-        $.ajax({
-            jsonpCallback: true,
-            url: "https://query.yahooapis.com/v1/public/yql",
-            data: {
-                q: "select * from html where " +
-                    "url='http://finance.i.ua/market/kiev/usd/?type=2'" +
-                    " and xpath='//html/body/div[5]/div[2]/div/div[2]/div[1]/table'",
-                format: "json"
-            }
-        }).done(function(data) {
-            ajaxDone(data, callback);
-        });
+
+        var ask,
+            self = this,
+            request = $.ajax({
+                jsonpCallback: true,
+                url: "https://query.yahooapis.com/v1/public/yql",
+                data: {
+                    q: "select * from html where " +
+                        "url='http://finance.i.ua/market/kiev/usd/?type=2'" +
+                        " and xpath='//html/body/div[5]/div[2]/div/div[2]/div[1]/table'",
+                    format: "json"
+                }
+            }),
+            chained = request.then(function (askData) {
+                ask = askData;
+                return $.ajax({
+                        jsonpCallback: true,
+                        url: "https://query.yahooapis.com/v1/public/yql",
+                        data: {
+                            q: "select * from html where " +
+                            "url='http://finance.i.ua/market/kiev/usd/?type=1'" +
+                            " and xpath='//html/body/div[5]/div[2]/div/div[2]/div[1]/table'",
+                            format: "json"
+                        }
+                    });
+                });
+            chained.done(function(bidData) {
+                self.ajaxDone(ask, bidData, callback);
+            });
     },
-    ajaxDone: function(data, callback) {
+
+    ajaxDone: function(askData, bidData, callback) {
         "use strict";
         try {
-            data = data.query.results.table.tr;
-            data.shift();
-            data.splice(50, data.length);
-            data.reverse();
+            askData = askData.query.results.table.tr;
+            askData.shift();
+            askData.splice(50, askData.length);
+            askData.reverse();
+            bidData = bidData.query.results.table.tr;
+            bidData.shift();
+            bidData.splice(50, bidData.length);
+            bidData.reverse();
         } catch (err) {
             callback({
                 data: [],
@@ -33,20 +54,30 @@ define("finance.i.ua.provider", ["jquery"], {
             //window.alert("Данные недоступны. Перезагрузите пожалуйста страницу.");
             return;
         }
-        var amount = data.map(function(el) {
+        var timeAsk = askData.map(function(el) {
                 return el.td[0].p;
             }),
-            time = data.map(function(el) {
+            amountAsk = askData.map(function(el) {
                 return parseInt(el.td[2].p);
             }),
-            rate = data.map(function(el) {
+            rateAsk = askData.map(function(el) {
+                return el.td[1].p;
+            }),
+            amountBid = bidData.map(function(el) {
+                return el.td[0].p;
+            }),
+            timeBid = bidData.map(function(el) {
+                return parseInt(el.td[2].p);
+            }),
+            rateBid = bidData.map(function(el) {
                 return parseInt(el.td[1].p);
             });
+        console.log(amountAsk, rateAsk, timeAsk);
         callback({
-            data: [amount, rate, time],
-            lastRate: rate[rate.length - 1],
-            lastAmount: time[time.length - 1] + "$",
-            lastTime: amount[amount.length - 1]
+            data: [amountAsk, rateAsk, timeAsk, amountBid, timeBid, rateBid],
+            lastRate: rateAsk[rateAsk.length - 1],
+            lastAmount: amountAsk[amountAsk.length - 1] + "$",
+            lastTime: timeAsk[timeAsk.length - 1]
         });
     }
 });

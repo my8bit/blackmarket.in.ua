@@ -15,9 +15,15 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
                     if (!data.data.length) {
                         data.data = [[],[],[]];
                     }
-                    data.data[0].unshift("x");
+                    data.data[2].unshift("x");
                     data.data[1].unshift("Курс в $");
-                    data.data[2].unshift("Количество");
+                    data.data[0].unshift("Количество");
+                    data.data[5].unshift("x");
+                    data.data[4].unshift("Курс в $");
+                    data.data[3].unshift("Количество");
+                    data.data.pop();
+                    data.data.pop();
+                    data.data.pop();
                     chart.load({
                         columns: data.data
                     });
