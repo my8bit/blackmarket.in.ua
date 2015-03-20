@@ -10,7 +10,7 @@ define("finance.i.ua.provider", ["jquery"], {
                 data: {
                     q: "select * from html where " +
                         "url='http://finance.i.ua/market/kiev/usd/?type=2'" +
-                        " and xpath='//html/body/div[5]/div[2]/div/div[2]/div[1]/table'",
+                        " and xpath='//html/body/div[5]/div[2]/div/div[2]/div[3]/table'",
                     format: "json"
                 }
             }),
@@ -22,7 +22,7 @@ define("finance.i.ua.provider", ["jquery"], {
                         data: {
                             q: "select * from html where " +
                             "url='http://finance.i.ua/market/kiev/usd/?type=1'" +
-                            " and xpath='//html/body/div[5]/div[2]/div/div[2]/div[1]/table'",
+                            " and xpath='//html/body/div[5]/div[2]/div/div[2]/div[3]/table'",
                             format: "json"
                         }
                     });
@@ -35,11 +35,11 @@ define("finance.i.ua.provider", ["jquery"], {
     ajaxDone: function(askData, bidData, callback) {
         "use strict";
         try {
-            askData = askData.query.results.table.tr;
+            askData = askData.query.results.table.tbody.tr;
             askData.shift();
             askData.splice(50, askData.length);
             askData.reverse();
-            bidData = bidData.query.results.table.tr;
+            bidData = bidData.query.results.table.tbody.tr;
             bidData.shift();
             bidData.splice(50, bidData.length);
             bidData.reverse();
@@ -55,22 +55,22 @@ define("finance.i.ua.provider", ["jquery"], {
             return;
         }
         var timeAsk = askData.map(function(el) {
-                return el.td[0].p;
+                return el.td[0];
             }),
             amountAsk = askData.map(function(el) {
-                return parseInt(el.td[2].p);
+                return parseInt(el.td[2]);
             }),
             rateAsk = askData.map(function(el) {
-                return el.td[1].p;
+                return el.td[1];
             }),
             amountBid = bidData.map(function(el) {
-                return el.td[0].p;
+                return parseInt(el.td[2]);
             }),
             timeBid = bidData.map(function(el) {
-                return parseInt(el.td[2].p);
+                return el.td[0];
             }),
             rateBid = bidData.map(function(el) {
-                return parseInt(el.td[1].p);
+                return el.td[1];
             });
         console.log(amountAsk, rateAsk, timeAsk);
         callback({
