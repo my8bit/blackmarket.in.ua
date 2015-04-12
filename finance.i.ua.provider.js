@@ -14,34 +14,35 @@ define("finance.i.ua.provider", ["jquery"], {
                     format: "json"
                 }
             }),
-            chained = request.then(function (askData) {
+            chained = request.then(function(askData) {
                 ask = askData;
                 return $.ajax({
-                        jsonpCallback: true,
-                        url: "https://query.yahooapis.com/v1/public/yql",
-                        data: {
-                            q: "select * from html where " +
+                    jsonpCallback: true,
+                    url: "https://query.yahooapis.com/v1/public/yql",
+                    data: {
+                        q: "select * from html where " +
                             "url='http://finance.i.ua/market/kiev/usd/?type=1'" +
                             " and xpath='//html/body/div[5]/div[2]/div/div[2]/div[3]/table'",
-                            format: "json"
-                        }
-                    });
+                        format: "json"
+                    }
                 });
-            chained.done(function(bidData) {
-                self.ajaxDone(ask, bidData, callback);
             });
+        chained.done(function(bidData) {
+            self.ajaxDone(ask, bidData, callback);
+        });
     },
 
     ajaxDone: function(askData, bidData, callback) {
         "use strict";
+        var resultsSum = 15;
         try {
             askData = askData.query.results.table.tbody.tr;
             askData.shift();
-            askData.splice(50, askData.length);
+            askData.splice(resultsSum, askData.length);
             askData.reverse();
             bidData = bidData.query.results.table.tbody.tr;
             bidData.shift();
-            bidData.splice(50, bidData.length);
+            bidData.splice(resultsSum, bidData.length);
             bidData.reverse();
         } catch (err) {
             callback({
@@ -72,6 +73,7 @@ define("finance.i.ua.provider", ["jquery"], {
             rateBid = bidData.map(function(el) {
                 return el.td[1];
             });
+        //filterDefective(data.data[0]);
         console.log(amountAsk, rateAsk, timeAsk);
         callback({
             data: [amountAsk, rateAsk, timeAsk, amountBid, timeBid, rateBid],

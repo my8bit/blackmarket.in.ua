@@ -7,17 +7,11 @@ define("chart", ["c3"], function(c3) {
             xFormat: "%H:%M",
             columns: [
                 ["x", 0, 1],
-                ["Курс в $", 0, 1],
-                ["Количество", 0, 1]
+                ["Курс в $", 0, 1]
             ],
-            axes: {
-                "Количество": "y2"
-            },
             type: "timeseries",
             types: {
-                "Количество": "bar",
-                "Курс в $": "step"
-                    // "Курс в $": "line"
+                "Курс в $": "line"
             }
         },
         zoom: {
@@ -44,13 +38,6 @@ define("chart", ["c3"], function(c3) {
                 show: true,
                 label: {
                     text: "Курс доллара.",
-                    position: "outer-middle"
-                }
-            },
-            y2: {
-                show: true,
-                label: {
-                    text: "Количество",
                     position: "outer-middle"
                 }
             },
