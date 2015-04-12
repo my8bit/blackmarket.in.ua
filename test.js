@@ -1,72 +1,77 @@
-define("test", ["mocha", "chai", "sinon", "finance.i.ua.provider"], function(mocha, chai, sinon, provider) {
-	"use strict";
+var testRunner = function(mocha, chai, sinon, provider) {
 	var assert = chai.assert;
-
 	describe("Specification of provider", function() {
-
 		it("should return data in specified format [[\"12:01\"], [100], [50]], where 12:01 - is time, 100 amount of money, and 50 is rate", function() {
-			var inputData = {},
+			var askData = {},
+				bidData = {},
 				outputData,
 				callback = sinon.spy();
-			inputData.query = {};
-			inputData.query.results = {};
-			inputData.query.results.table = {};
-			inputData.query.results.table.tr = [{}, {
-				"td": [{
-					"p": "12:01"
-				}, {
-					"p": "100"
-				}, {
-					"p": "500$"
-				}]
+			askData.query = {}; // askData.query.results.table.tbody.tr
+			askData.query.results = {};
+			askData.query.results.table = {};
+			askData.query.results.table.tbody = {};
+			askData.query.results.table.tbody.tr = [{
+				"mock": "of table header"
 			}, {
-				"td": [{
-					"p": "12:02"
-				}, {
-					"p": "101"
-				}, {
-					"p": "550$"
-				}]
+				"td": ["12:04", "121", "501$"]
 			}, {
-				"td": [{
-					"p": "12:03"
-				}, {
-					"p": "102"
-				}, {
-					"p": "100$"
-				}]
+				"td": ["12:05", "131", "551$"]
+			}, {
+				"td": ["12:06", "141", "101$"]
 			}];
-			provider.ajaxDone(inputData, callback);
+			bidData.query = {};
+			bidData.query.results = {};
+			bidData.query.results.table = {};
+			bidData.query.results.table.tbody = {};
+			bidData.query.results.table.tbody.tr = [{
+				"mock": "of table header"
+			}, {
+				"td": ["12:01", "120", "500$"]
+			}, {
+				"td": ["12:02", "110", "550$"]
+			}, {
+				"td": ["12:03", "140", "100$"]
+			}];
+			provider.ajaxDone(askData, bidData, callback);
 			outputData = callback.args[0][0].data;
-			assert.equal(outputData[0][0], "12:03");
-			assert.equal(outputData[0][1], "12:02");
-			assert.equal(outputData[0][2], "12:01");
-			assert.equal(outputData[1][0], 102);
-			assert.equal(outputData[1][1], 101);
-			assert.equal(outputData[1][2], 100);
-			assert.equal(outputData[2][0], 100);
-			assert.equal(outputData[2][1], 550);
-			assert.equal(outputData[2][2], 500);
+			assert.equal(outputData[2][0], "12:06");
+			assert.equal(outputData[2][1], "12:05");
+			assert.equal(outputData[2][2], "12:04");
+			assert.equal(outputData[1][0], 141);
+			assert.equal(outputData[1][1], 131);
+			assert.equal(outputData[1][2], 121);
+			assert.equal(outputData[0][0], 101);
+			assert.equal(outputData[0][1], 551);
+			assert.equal(outputData[0][2], 501);
 		});
+
 		it("should call the callback function even while data is broken", function() {
 			var callback = sinon.spy();
-			provider.ajaxDone([], callback);
+			provider.ajaxDone([], [], callback);
 			assert.isTrue(callback.called);
-			provider.ajaxDone({}, callback);
+			provider.ajaxDone({}, {}, callback);
 			assert.isTrue(callback.called);
-			provider.ajaxDone("", callback);
+			provider.ajaxDone("", "", callback);
 			assert.isTrue(callback.called);
-			assert.equal(callback.args[0][0].lastRate, "неизвестному");
-			assert.equal(callback.args[0][0].lastAmount, "что-то");
-			assert.equal(callback.args[0][0].lastTime, "неизвестное время");
-		});
-		it("should return message that data is broken", function() {
-			var callback = sinon.spy();
-			provider.ajaxDone({}, callback);
 			assert.equal(callback.args[0][0].lastRate, "неизвестному");
 			assert.equal(callback.args[0][0].lastAmount, "что-то");
 			assert.equal(callback.args[0][0].lastTime, "неизвестное время");
 		});
 
 	});
-});
+}
+
+if (typeof define != "undefined") {
+	define("test", ["mocha", "chai", "sinon", "finance.i.ua.provider"], function(mocha, chai, sinon, provider) {
+		"use strict";
+		testRunner.apply(this, arguments);
+	});
+}
+
+if (typeof module !== "undefined") { //TODO
+	require("amd-loader");
+	var sinon = require("sinon"),
+		chai = require("chai"),
+		provider = require("./finance.i.ua.provider");
+	testRunner.apply(this, ["", chai, sinon, provider]);
+}

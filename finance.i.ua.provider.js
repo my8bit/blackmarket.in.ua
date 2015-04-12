@@ -51,7 +51,7 @@ define("finance.i.ua.provider", ["jquery"], {
                 lastAmount: "что-то",
                 lastTime: "неизвестное время"
             });
-            console.warn("Данные недоступны. Перезагрузите пожалуйста страницу.");
+            //console.warn("Данные недоступны. Перезагрузите пожалуйста страницу.");
             //window.alert("Данные недоступны. Перезагрузите пожалуйста страницу.");
             return;
         }
@@ -74,7 +74,6 @@ define("finance.i.ua.provider", ["jquery"], {
                 return el.td[1];
             });
         //filterDefective(data.data[0]);
-        console.log(amountAsk, rateAsk, timeAsk);
         callback({
             data: [amountAsk, rateAsk, timeAsk, amountBid, timeBid, rateBid],
             lastRate: rateAsk[rateAsk.length - 1],
