@@ -3,15 +3,21 @@ define("chart", ["c3"], function(c3) {
     return c3.generate({
         bindto: "#chart",
         data: {
-            x: "x",
+            xs: {
+                "Продажа": "x1",
+                "Покупка": "x2"
+            },
             xFormat: "%H:%M",
             columns: [
-                ["x", 0, 1],
-                ["Курс в $", 0, 1]
+                ["Продажа", 1, 2],
+                ["x1", "12:00", "12:05"],
+                ["Покупка", 2, 3],
+                ["x2", "12:01", "12:04"]
             ],
             type: "timeseries",
             types: {
-                "Курс в $": "line"
+                "Продажа": "line",
+                "Покупка": "line"
             }
         },
         zoom: {

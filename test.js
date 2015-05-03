@@ -8,29 +8,33 @@ var testRunner = function(mocha, chai, sinon, provider) {
 				callback = sinon.spy();
 			askData.query = {}; // askData.query.results.table.tbody.tr
 			askData.query.results = {};
-			askData.query.results.table = {};
-			askData.query.results.table.tbody = {};
-			askData.query.results.table.tbody.tr = [{
+			askData.query.results.tbody = {};
+			askData.query.results.tbody.tr = [{
 				"mock": "of table header"
 			}, {
-				"td": ["12:04", "121", "501$"]
+				"td": ["12:04", "121", "501$"],
+				"class": "invalid"
 			}, {
-				"td": ["12:05", "131", "551$"]
+				"td": ["12:05", "131", "551$"],
+				"class": "invalid"
 			}, {
-				"td": ["12:06", "141", "101$"]
+				"td": ["12:06", "141", "101$"],
+				"class": "invalid"
 			}];
 			bidData.query = {};
 			bidData.query.results = {};
-			bidData.query.results.table = {};
-			bidData.query.results.table.tbody = {};
-			bidData.query.results.table.tbody.tr = [{
+			bidData.query.results.tbody = {};
+			bidData.query.results.tbody.tr = [{
 				"mock": "of table header"
 			}, {
-				"td": ["12:01", "120", "500$"]
+				"td": ["12:01", "120", "500$"],
+				"class": "invalid"
 			}, {
-				"td": ["12:02", "110", "550$"]
+				"td": ["12:02", "110", "550$"],
+				"class": "invalid"
 			}, {
-				"td": ["12:03", "140", "100$"]
+				"td": ["12:03", "140", "100$"],
+				"class": "invalid"
 			}];
 			provider.ajaxDone(askData, bidData, callback);
 			outputData = callback.args[0][0].data;
@@ -61,14 +65,15 @@ var testRunner = function(mocha, chai, sinon, provider) {
 	});
 }
 
-if (typeof define != "undefined") {
-	define("test", ["mocha", "chai", "sinon", "finance.i.ua.provider"], function(mocha, chai, sinon, provider) {
-		"use strict";
-		testRunner.apply(this, arguments);
-	});
+if (typeof module === "undefined") {
+	define("test", ["mocha", "chai", "sinon", "finance.i.ua.provider"],
+		function(mocha, chai, sinon, provider) {
+			"use strict";
+			testRunner.apply(this, arguments);
+		});
 }
 
-if (typeof module !== "undefined") { //TODO
+if (typeof module != "undefined") { //TODO 
 	require("amd-loader");
 	var sinon = require("sinon"),
 		chai = require("chai"),

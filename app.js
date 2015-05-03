@@ -19,16 +19,14 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
                             []
                         ];
                     }
-                    data.data[2].unshift("x");
-                    data.data[1].unshift("Курс в $");
                     data.data[0].unshift("Количество");
-                    data.data[5].unshift("x");
-                    data.data[4].unshift("Курс в $");
+                    data.data[1].unshift("Продажа");
+                    data.data[2].unshift("x1");
                     data.data[3].unshift("Количество");
-                    data.data.pop();
-                    data.data.pop();
-                    data.data.pop();
-                    data.data.shift()
+                    data.data[4].unshift("Покупка");
+                    data.data[5].unshift("x2");
+                    data.data.splice(0, 1);
+                    data.data.splice(2, 1);
                     chart.load({
                         columns: data.data
                     });
