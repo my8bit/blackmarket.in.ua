@@ -10,7 +10,7 @@ define("finance.i.ua.provider", ["jquery"], {
                 data: {
                     q: "select * from html where " +
                         "url='http://finance.i.ua/market/kiev/usd/?type=2'" +
-                        " and xpath='//html/body/div[5]/div[2]/div/div[2]/div[3]/table'",
+                        " and xpath='//html/body/div[1]/div[5]/div[2]/div/div[2]/div[3]/table'",
                     format: "json"
                 }
             }),
@@ -22,7 +22,7 @@ define("finance.i.ua.provider", ["jquery"], {
                         data: {
                             q: "select * from html where " +
                             "url='http://finance.i.ua/market/kiev/usd/?type=1'" +
-                            " and xpath='//html/body/div[5]/div[2]/div/div[2]/div[3]/table'",
+                            " and xpath='//html/body/div[1]/div[5]/div[2]/div/div[2]/div[3]/table'",
                             format: "json"
                         }
                     });
