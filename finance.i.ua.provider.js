@@ -33,7 +33,17 @@ define("finance.i.ua.provider", [ /*"filter"*/ ], function(filter) {
                 self.ajaxDone(ask, bidData, callback);
             });
         },
-
+        /** Filter all values that low or high the cut value
+         * For example array = [100,3,90] and cut = 15
+         * result will be [100, 90] because 3 is more than 15 percent
+         * @param {array} array - array to filter
+         * @param {number} cut - percent to cut */
+        filter: function (array, cut) {
+            var average = array.reduce(function(prev, next) {return parseFloat(prev) + parseFloat(next) }, 0) / array.length,
+                cutValMax = average + average * cut,
+                cutValMin = average - average * cut;
+            return a.filter(function (val) { return parseFloat(val) >= cutValMin && parseFloat(val) <= cutValMax});
+        },
         ajaxDone: function(askData, bidData, callback) {
             "use strict";
             var resultsSum = 150;
@@ -44,14 +54,16 @@ define("finance.i.ua.provider", [ /*"filter"*/ ], function(filter) {
                 askData = askData.filter(function(el) {
                     return el.class === "invalid"
                 });
-                /*                var today = [];
+                /*
+                var today = [];
                 for (var i = askData.length - 1; i >= 0; i--) {
                     if (parseInt(askData[i].td[0].substr(0, 2)) < 22) {
                         today.push(el);
                     } else {
                         return;
                     }
-                };*/
+                };
+                */
                 askData.reverse();
                 bidData = bidData.query.results.tbody.tr;
                 bidData.shift();
@@ -91,7 +103,11 @@ define("finance.i.ua.provider", [ /*"filter"*/ ], function(filter) {
                 }),
                 rateBid = bidData.map(function(el) {
                     return el.td[1];
-                });
+                }),
+                cut = 0.2;
+                rateAsk = this.filter(rateAsk, cut);
+                rateBid = this.filter(rateBid, cut);
+
             callback({
                 data: [amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid],
                 lastRate: rateAsk[rateAsk.length - 1],
