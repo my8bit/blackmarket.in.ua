@@ -42,7 +42,7 @@ define("finance.i.ua.provider", [ /*"filter"*/ ], function(filter) {
             var average = array.reduce(function(prev, next) {return parseFloat(prev) + parseFloat(next) }, 0) / array.length,
                 cutValMax = average + average * cut,
                 cutValMin = average - average * cut;
-            return a.filter(function (val) { return parseFloat(val) >= cutValMin && parseFloat(val) <= cutValMax});
+            return array.filter(function (val) { return parseFloat(val) >= cutValMin && parseFloat(val) <= cutValMax});
         },
         ajaxDone: function(askData, bidData, callback) {
             "use strict";
