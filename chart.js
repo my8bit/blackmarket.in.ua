@@ -3,21 +3,21 @@ define("chart", ["c3"], function(c3) {
     return c3.generate({
         bindto: "#chart",
         data: {
-            x: "x",
+            xs: {
+                "Продажа": "x1",
+                "Покупка": "x2"
+            },
             xFormat: "%H:%M",
             columns: [
-                ["x", 0, 1],
-                ["Курс в $", 0, 1],
-                ["Количество", 0, 1]
+                ["Продажа", 1, 2],
+                ["x1", "12:00", "12:05"],
+                ["Покупка", 2, 3],
+                ["x2", "12:01", "12:04"]
             ],
-            axes: {
-                "Количество": "y2"
-            },
             type: "timeseries",
             types: {
-                "Количество": "bar",
-                "Курс в $": "step"
-                    // "Курс в $": "line"
+                "Продажа": "line",
+                "Покупка": "line"
             }
         },
         zoom: {
@@ -44,13 +44,6 @@ define("chart", ["c3"], function(c3) {
                 show: true,
                 label: {
                     text: "Курс доллара.",
-                    position: "outer-middle"
-                }
-            },
-            y2: {
-                show: true,
-                label: {
-                    text: "Количество",
                     position: "outer-middle"
                 }
             },

@@ -1,0 +1,13 @@
+{
+  "name": "blackmarket.in.ua",
+  "readmeFilename": "README.md",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "devDependencies": {
+    "amd-loader": "0.0.5",
+    "chai": "^2.2.0",
+    "mocha": "^2.2.4",
+    "sinon": "^1.14.1"
+  }
+}
