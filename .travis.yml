@@ -4,4 +4,6 @@ node_js:
 - "iojs-v1.0.4"
 # whitelist
 branches:
-  - gh-pages
+  only:
+    - gh-pages
+
