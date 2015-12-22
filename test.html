@@ -25,6 +25,7 @@
           exports : "sinon"
         }
       },
+      baseUrl: "js",
       paths: {
         jquery: "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min",
         chai: "//cdnjs.cloudflare.com/ajax/libs/chai/1.10.0/chai",
@@ -36,7 +37,18 @@
     require(["mocha", "test"], function(mocha) {
     mocha.run();
     });
-    </script>
+
+requirejs(["jquery", "finance.i.ua.provider"],
+    function($, fprovider) {
+      fprovider.getData(function(data) {
+      data.data[0].forEach(function(el, idx) {
+        console.log("amount ask " + el + " at time " + data.data[2][idx]);
+      });
+        //amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid
+      });
+  });
+
+            </script>
   </head>
   <body>
     <div id="mocha"></div>

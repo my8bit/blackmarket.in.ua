@@ -1,4 +1,5 @@
 requirejs.config({
+    baseUrl: "js",
     paths: {
         "jquery": "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min",
         "knockout-min": "//cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min",
