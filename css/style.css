@@ -107,7 +107,7 @@ body.alt  h1 a:visited {
 h2, h1, h3 {
     /* margin-top: 15px; */
     margin: 15px;
-    color: white;
+    color: black;
 }
 .dataCursor {
 /*    border: none;
