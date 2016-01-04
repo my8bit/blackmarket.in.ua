@@ -12,11 +12,11 @@ body.alt h2, h1, h3 {
 }
 
 .update-info {
-    color: white;
+    color: black;
     margin-bottom: 10px;
 }
 .update-info a {
-    color: white;
+    color: black;
 }
 body.alt .update-info {
     color: black;
@@ -48,7 +48,7 @@ body.alt g.tick, body.alt
 }
 .c3-axis, g.tick, .c3-grid  {
     font-family: 'PT Sans Narrow', sans-serif;
-    fill: white;
+    fill: black;
     font-size: 14px;
     /*stroke: white;*/
 }
@@ -65,7 +65,7 @@ body.alt g.tick, body.alt
 }
 .c3 path, .c3 line {
   fill: none;
-  stroke: white;
+  stroke: black;
 }
 #octocat {
     width: 48px;
