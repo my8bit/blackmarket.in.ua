@@ -1,9 +1,7 @@
-define("finance.i.ua.provider", [ /*"filter"*/ ], function(filter) {
-    /*console.log(filter);*/
+define("finance.i.ua.provider", ["jquery"], function($) {
+    "use strict";
     return {
         getData: function(callback) {
-            //console.log(filter);
-            "use strict";
             var ask,
                 self = this,
                 request = $.ajax({
@@ -38,38 +36,31 @@ define("finance.i.ua.provider", [ /*"filter"*/ ], function(filter) {
          * result will be [100, 90] because 3 is more than 15 percent
          * @param {array} array - array to filter
          * @param {number} cut - percent to cut */
-        filter: function (array, cut) {
-            var average = array.reduce(function(prev, next) {return parseFloat(prev) + parseFloat(next) }, 0) / array.length,
+        filter: function(array, cut) {
+            var average = array.reduce(function(prev, next) {
+                    return parseFloat(prev) + parseFloat(next);
+                }, 0) / array.length,
                 cutValMax = average + average * cut,
                 cutValMin = average - average * cut;
-            return array.filter(function (val) { return parseFloat(val) >= cutValMin && parseFloat(val) <= cutValMax});
+            return array.filter(function(val) {
+                return parseFloat(val) >= cutValMin && parseFloat(val) <= cutValMax;
+            });
         },
         ajaxDone: function(askData, bidData, callback) {
-            "use strict";
             var resultsSum = 150;
             try {
                 askData = askData.query.results.tbody.tr;
                 askData.shift();
                 askData.splice(resultsSum, askData.length);
                 askData = askData.filter(function(el) {
-                    return el.class === "invalid"
+                    return el.class === "invalid";
                 });
-                /*
-                var today = [];
-                for (var i = askData.length - 1; i >= 0; i--) {
-                    if (parseInt(askData[i].td[0].substr(0, 2)) < 22) {
-                        today.push(el);
-                    } else {
-                        return;
-                    }
-                };
-                */
                 askData.reverse();
                 bidData = bidData.query.results.tbody.tr;
                 bidData.shift();
                 bidData.splice(resultsSum, bidData.length);
                 bidData = bidData.filter(function(el) {
-                    return el.class === "invalid"
+                    return el.class === "invalid";
                 });
                 bidData = bidData.filter(function(el) {
                     return parseInt(el.td[0].substr(0, 2)) < 22;
@@ -105,8 +96,8 @@ define("finance.i.ua.provider", [ /*"filter"*/ ], function(filter) {
                     return el.td[1];
                 }),
                 cut = 0.2;
-                rateAsk = this.filter(rateAsk, cut);
-                rateBid = this.filter(rateBid, cut);
+            rateAsk = this.filter(rateAsk, cut);
+            rateBid = this.filter(rateBid, cut);
 
             callback({
                 data: [amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid],
@@ -115,5 +106,5 @@ define("finance.i.ua.provider", [ /*"filter"*/ ], function(filter) {
                 lastTime: timeAsk[timeAsk.length - 1]
             });
         }
-    }
+    };
 });

@@ -65,6 +65,7 @@ var testRunner = function(mocha, chai, sinon, provider) {
 	});
 }
 
+
 if (typeof module === "undefined") {
 	define("test", ["mocha", "chai", "sinon", "finance.i.ua.provider"],
 		function(mocha, chai, sinon, provider) {

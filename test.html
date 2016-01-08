@@ -40,10 +40,34 @@
 
 requirejs(["jquery", "finance.i.ua.provider"],
     function($, fprovider) {
+      function downloadCSV (name ,data) {
+        var filename = name + ".csv",
+          blob = new Blob([data], {type: "text/json"}),
+          e = document.createEvent("MouseEvents"),
+          a = document.createElement("a");
+
+        a.download = filename;
+        a.href = window.URL.createObjectURL(blob);
+        a.dataset.downloadurl =  ["text/csv", a.download, a.href].join(':');
+        e.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        a.dispatchEvent(e);
+      }
+
       fprovider.getData(function(data) {
-      data.data[0].forEach(function(el, idx) {
-        console.log("amount ask " + el + " at time " + data.data[2][idx]);
-      });
+        var ask = "",
+          bid = "";
+        data.data[0].forEach(function(el, idx) {
+          ask += el + "," + data.data[1][idx] + "," + data.data[2][idx] + "\n";
+        });
+        downloadCSV("ask", ask);
+        
+        data.data[3].forEach(function(el, idx) {
+          bid += el + "," + data.data[4][idx] + "," + data.data[5][idx] + "\n";
+        });
+        downloadCSV("bid", bid);
+        
+        console.log(data);
+        
         //amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid
       });
   });
