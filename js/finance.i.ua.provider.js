@@ -43,7 +43,9 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                 cutValMax = average + average * cut,
                 cutValMin = average - average * cut;
             return array.filter(function(val) {
-                return parseFloat(val) >= cutValMin && parseFloat(val) <= cutValMax;
+                var current = parseFloat(val);
+                console.log("current " + current + " cutValMin " + cutValMin + " cutValMax " + cutValMax);
+                return current > cutValMin && current < cutValMax;
             });
         },
         ajaxDone: function(askData, bidData, callback) {
@@ -95,9 +97,9 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                 rateBid = bidData.map(function(el) {
                     return el.td[1];
                 }),
-                cut = 0.2;
-            //rateAsk = this.filter(rateAsk, cut);
-            //rateBid = this.filter(rateBid, cut);
+                cut = 0.1; //TODO refactor
+            rateAsk = this.filter(rateAsk, cut);
+            rateBid = this.filter(rateBid, cut);
 
             callback({
                 data: [amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid],
