@@ -1,7 +1,8 @@
 define("finance.i.ua.provider", ["jquery"], function($) {
     "use strict";
     return {
-        getData: function(callback) {
+        getData: function(callback, currency, invalid) {
+            currency = currency || "usd";
             var ask,
                 self = this,
                 request = $.ajax({
@@ -9,7 +10,7 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                     url: "https://query.yahooapis.com/v1/public/yql",
                     data: {
                         q: "select * from html where " +
-                            "url='http://finance.i.ua/market/kiev/usd/?type=2'" +
+                            "url='http://finance.i.ua/market/kiev/" + currency + "/?type=2'" +
                             " and xpath='//html/body/div[1]/div[5]/div[2]/div/div[2]/div[3]/table/tbody'",
                         format: "json"
                     }
@@ -21,14 +22,14 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                         url: "https://query.yahooapis.com/v1/public/yql",
                         data: {
                             q: "select * from html where " +
-                                "url='http://finance.i.ua/market/kiev/usd/?type=1'" +
+                                "url='http://finance.i.ua/market/kiev/" + currency + "/?type=1'" +
                                 " and xpath='//html/body/div[1]/div[5]/div[2]/div/div[2]/div[3]/table/tbody'",
                             format: "json"
                         }
                     });
                 });
             chained.done(function(bidData) {
-                self.ajaxDone(ask, bidData, callback);
+                self.ajaxDone(ask, bidData, callback, invalid);
             });
         },
         /** Filter all values that low or high the cut value
@@ -47,6 +48,16 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                 console.log("current " + current + " cutValMin " + cutValMin + " cutValMax " + cutValMax);
                 return current > cutValMin && current < cutValMax;
             });
+        },
+        getLatest: function(data) {
+            return {
+                lastAmount: data.data[0][data.data[0].length - 1] + "$",
+                lastRate: data.data[1][data.data[1].length - 1],
+                lastTime: data.data[2][data.data[2].length - 1],
+                lastAmountbid: data.data[3][data.data[3].length - 1] + "$",
+                lastRatebid: data.data[4][data.data[4].length - 1],
+                lastTimebid: data.data[5][data.data[5].length - 1]
+            };
         },
         ajaxDone: function(askData, bidData, callback) {
             var resultsSum = 150;
