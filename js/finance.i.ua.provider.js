@@ -114,10 +114,7 @@ define(["jquery"], function($) {
             rateBid = this.filter(rateBid, cut);
 
             callback({
-                data: [amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid],
-                lastRate: rateAsk[rateAsk.length - 1],
-                lastAmount: amountAsk[amountAsk.length - 1] + "$",
-                lastTime: timeAsk[timeAsk.length - 1]
+                data: [amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid]
             });
         }
     };

@@ -22,6 +22,8 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
                         []
                     ];
                 }
+                var latest = fprovider.getLatest(data);
+
                 data.data[0].unshift("Количество");
                 data.data[1].unshift("Продажа");
                 data.data[2].unshift("x1");
@@ -34,9 +36,9 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
                     columns: data.data
                 });
                 random.stop();
-                viewModel.time(data.lastTime);
-                viewModel.rate(data.lastRate);
-                viewModel.amount(data.lastAmount);
+                viewModel.time(latest.lastTime);
+                viewModel.rate(latest.lastRate);
+                viewModel.amount(latest.lastAmount);
             }
         };
 
