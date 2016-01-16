@@ -72,16 +72,14 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
         });
 
         it("should call filter latest in finance", function() {
-            var data = {
-                    data: [
-                        ["3", "2", "1"],
-                        [0, 1, 2],
-                        [1, 2, 3],
-                        ["1", "2", "3", "4"],
-                        [1, 2, 3, 4, 5],
-                        [1, 2, 3, 4, 5, 6]
-                    ]
-                },
+            var data = [
+                    ["3", "2", "1"],
+                    [0, 1, 2],
+                    [1, 2, 3],
+                    ["1", "2", "3", "4"],
+                    [1, 2, 3, 4, 5],
+                    [1, 2, 3, 4, 5, 6]
+                ],
                 output = finProvider.getLatest(data),
                 filtered = {
                     lastAmount: "1$",

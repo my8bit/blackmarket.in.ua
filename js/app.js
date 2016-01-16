@@ -15,7 +15,7 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
             dataHandler;
         dataHandler = function(data) {
             if (data) {
-                if (!data.data.length) {
+                if (!data.length) {
                     data.data = [
                         [],
                         [],
@@ -24,17 +24,19 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
                 }
                 var latest = fprovider.getLatest(data);
 
-                data.data[0].unshift("Количество");
-                data.data[1].unshift("Продажа");
-                data.data[2].unshift("x1");
-                data.data[3].unshift("Количество");
-                data.data[4].unshift("Покупка");
-                data.data[5].unshift("x2");
-                data.data.splice(0, 1);
-                data.data.splice(2, 1);
+                data[0].unshift("Количество");
+                data[1].unshift("Продажа");
+                data[2].unshift("x1");
+                data[3].unshift("Количество");
+                data[4].unshift("Покупка");
+                data[5].unshift("x2");
+
+                data.splice(0, 1);
+                data.splice(2, 1);
                 chart.load({
-                    columns: data.data
+                    columns: data
                 });
+
                 random.stop();
                 viewModel.time(latest.lastTime);
                 viewModel.rate(latest.lastRate);

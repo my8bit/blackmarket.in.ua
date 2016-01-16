@@ -52,12 +52,12 @@ define(["jquery"], function($) {
         },
         getLatest: function(data) {
             return {
-                lastAmount: data.data[0][data.data[0].length - 1] + "$",
-                lastRate: data.data[1][data.data[1].length - 1],
-                lastTime: data.data[2][data.data[2].length - 1],
-                lastAmountbid: data.data[3][data.data[3].length - 1] + "$",
-                lastRatebid: data.data[4][data.data[4].length - 1],
-                lastTimebid: data.data[5][data.data[5].length - 1]
+                lastAmount: data[0][data[0].length - 1] + "$",
+                lastRate: data[1][data[1].length - 1],
+                lastTime: data[2][data[2].length - 1],
+                lastAmountbid: data[3][data[3].length - 1] + "$",
+                lastRatebid: data[4][data[4].length - 1],
+                lastTimebid: data[5][data[5].length - 1]
             };
         },
         ajaxDone: function(askData, bidData, callback) {
@@ -113,9 +113,7 @@ define(["jquery"], function($) {
             rateAsk = this.filter(rateAsk, cut);
             rateBid = this.filter(rateBid, cut);
 
-            callback({
-                data: [amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid]
-            });
+            callback([amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid]);
         }
     };
 });
