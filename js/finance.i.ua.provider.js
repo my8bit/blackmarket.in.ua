@@ -1,4 +1,4 @@
-define("finance.i.ua.provider", ["jquery"], function($) {
+define(["jquery"], function($) {
     "use strict";
     return {
         getData: function(callback, currency, invalid) {
@@ -31,6 +31,7 @@ define("finance.i.ua.provider", ["jquery"], function($) {
             chained.done(function(bidData) {
                 self.ajaxDone(ask, bidData, callback, invalid);
             });
+            return chained;
         },
         /** Filter all values that low or high the cut value
          * For example array = [100,3,90] and cut = 15
@@ -45,7 +46,7 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                 cutValMin = average - average * cut;
             return array.filter(function(val) {
                 var current = parseFloat(val);
-                console.log("current " + current + " cutValMin " + cutValMin + " cutValMax " + cutValMax);
+                //console.log("current " + current + " cutValMin " + cutValMin + " cutValMax " + cutValMax);
                 return current > cutValMin && current < cutValMax;
             });
         },

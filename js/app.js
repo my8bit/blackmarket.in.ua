@@ -8,42 +8,48 @@ requirejs.config({
     }
 });
 
-requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewModel", "randomDate", "refresher"],
-    function(chart, ko, $, fprovider, ViewModel, random, refresher) {
+requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewModel", "randomDate"],
+    function(chart, ko, $, fprovider, ViewModel, random) {
         "use strict";
-        var dataHandler = function(data) {
-                if (data) {
-                    if (!data.data.length) {
-                        data.data = [
-                            [],
-                            [],
-                            []
-                        ];
-                    }
-                    data.data[0].unshift("Количество");
-                    data.data[1].unshift("Продажа");
-                    data.data[2].unshift("x1");
-                    data.data[3].unshift("Количество");
-                    data.data[4].unshift("Покупка");
-                    data.data[5].unshift("x2");
-                    data.data.splice(0, 1);
-                    data.data.splice(2, 1);
-                    chart.load({
-                        columns: data.data
-                    });
-                    random.stop();
-                    viewModel.time(data.lastTime);
-                    viewModel.rate(data.lastRate);
-                    viewModel.amount(data.lastAmount);
-                    refresher.progressStop();
-                    refresher.progressStart(600);
+        var viewModel,
+            dataHandler;
+        dataHandler = function(data) {
+            if (data) {
+                if (!data.data.length) {
+                    data.data = [
+                        [],
+                        [],
+                        []
+                    ];
                 }
-            },
-            viewModel = new ViewModel("?", "?", "?");
-        fprovider.getData(dataHandler);
+                data.data[0].unshift("Количество");
+                data.data[1].unshift("Продажа");
+                data.data[2].unshift("x1");
+                data.data[3].unshift("Количество");
+                data.data[4].unshift("Покупка");
+                data.data[5].unshift("x2");
+                data.data.splice(0, 1);
+                data.data.splice(2, 1);
+                chart.load({
+                    columns: data.data
+                });
+                random.stop();
+                viewModel.time(data.lastTime);
+                viewModel.rate(data.lastRate);
+                viewModel.amount(data.lastAmount);
+            }
+        };
+
+        viewModel = new ViewModel("?", "?", "?");
         ko.applyBindings(viewModel);
         random.start(100, viewModel);
-        refresher.refresh(function() {
-            fprovider.getData(dataHandler);
-        }, 10000);
+
+        (function poll() {
+            var pollingFn = function() {
+                fprovider.getData(dataHandler).then(function() {
+                    poll();
+                });
+            };
+            setTimeout(pollingFn, 1000);
+        })();
     });
