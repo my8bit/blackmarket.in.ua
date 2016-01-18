@@ -68,6 +68,9 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                 askData = askData.filter(function(el) {
                     return el.class === "invalid";
                 });
+                askData = askData.filter(function(el) {
+                    return parseInt(el.td[0].substr(0, 2)) < 22; //TODO Refactor hardcoded filter
+                });
                 askData.reverse();
                 bidData = bidData.query.results.tbody.tr;
                 bidData.shift();
