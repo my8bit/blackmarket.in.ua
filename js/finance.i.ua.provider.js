@@ -65,20 +65,26 @@ define(["jquery"], function($) {
             try {
                 askData = askData.query.results.tbody.tr;
                 askData.shift();
-                askData.splice(resultsSum, askData.length);
+                //askData.splice(resultsSum, askData.length);
                 askData = askData.filter(function(el) {
                     return el.class === "invalid";
+                });
+                askData = askData.filter(function(el) {
+                    console.log("askData", parseInt(el.td[0].substr(0, 2)));
+                    return parseInt(el.td[1].substr(0, 2)) > 22; //TODO Refactor hardcoded filter
                 });
                 askData.reverse();
                 bidData = bidData.query.results.tbody.tr;
                 bidData.shift();
-                bidData.splice(resultsSum, bidData.length);
                 bidData = bidData.filter(function(el) {
                     return el.class === "invalid";
                 });
+                /*
                 bidData = bidData.filter(function(el) {
-                    return parseInt(el.td[0].substr(0, 2)) < 22;
+                    return parseInt(el.td[0].substr(0, 2)) < 22; //TODO Refactor hardcoded filter
                 });
+                */
+                //bidData.splice(resultsSum, bidData.length);
                 bidData.reverse();
             } catch (err) {
                 callback({
@@ -110,8 +116,8 @@ define(["jquery"], function($) {
                     return el.td[1];
                 }),
                 cut = 0.1; //TODO refactor
-            rateAsk = this.filter(rateAsk, cut);
-            rateBid = this.filter(rateBid, cut);
+            //rateAsk = this.filter(rateAsk, cut);
+            //rateBid = this.filter(rateBid, cut);
 
             callback([amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid]);
         }

@@ -4,7 +4,7 @@ requirejs.config({
         "jquery": "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min",
         "knockout-min": "//cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min",
         "d3": "//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min",
-        "c3": "//cdnjs.cloudflare.com/ajax/libs/c3/0.4.9/c3.min"
+        "c3": "//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min"
     }
 });
 
@@ -47,7 +47,6 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
         viewModel = new ViewModel("?", "?", "?");
         ko.applyBindings(viewModel);
         random.start(100, viewModel);
-
         (function poll() {
             var pollingFn = function() {
                 fprovider.getData(dataHandler).then(function() {
@@ -56,4 +55,8 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
             };
             setTimeout(pollingFn, 1000);
         })();
+    });
+        refresher.refresh(function() {
+            fprovider.getData(dataHandler);
+        }, 10000);
     });
