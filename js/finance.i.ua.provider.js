@@ -71,13 +71,13 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                 askData.reverse();
                 bidData = bidData.query.results.tbody.tr;
                 bidData.shift();
-                bidData.splice(resultsSum, bidData.length);
                 bidData = bidData.filter(function(el) {
                     return el.class === "invalid";
                 });
                 bidData = bidData.filter(function(el) {
-                    return parseInt(el.td[0].substr(0, 2)) < 22;
+                    return parseInt(el.td[0].substr(0, 2)) < 22; //TODO Refactor hardcoded filter
                 });
+                bidData.splice(resultsSum, bidData.length);
                 bidData.reverse();
             } catch (err) {
                 callback({
