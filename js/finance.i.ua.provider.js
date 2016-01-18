@@ -64,7 +64,7 @@ define("finance.i.ua.provider", ["jquery"], function($) {
             try {
                 askData = askData.query.results.tbody.tr;
                 askData.shift();
-                askData.splice(resultsSum, askData.length);
+                //askData.splice(resultsSum, askData.length);
                 askData = askData.filter(function(el) {
                     return el.class === "invalid";
                 });
@@ -77,7 +77,7 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                 bidData = bidData.filter(function(el) {
                     return parseInt(el.td[0].substr(0, 2)) < 22; //TODO Refactor hardcoded filter
                 });
-                bidData.splice(resultsSum, bidData.length);
+                //bidData.splice(resultsSum, bidData.length);
                 bidData.reverse();
             } catch (err) {
                 callback({
