@@ -109,8 +109,8 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                     return el.td[1];
                 }),
                 cut = 0.1; //TODO refactor
-            rateAsk = this.filter(rateAsk, cut);
-            rateBid = this.filter(rateBid, cut);
+            //rateAsk = this.filter(rateAsk, cut);
+            //rateBid = this.filter(rateBid, cut);
 
             callback({
                 data: [amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid],
