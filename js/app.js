@@ -4,7 +4,7 @@ requirejs.config({
         "jquery": "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min",
         "knockout-min": "//cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min",
         "d3": "//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min",
-        "c3": "//cdnjs.cloudflare.com/ajax/libs/c3/0.4.9/c3.min"
+        "c3": "//cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min"
     }
 });
 
