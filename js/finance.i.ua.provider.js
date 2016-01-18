@@ -70,7 +70,7 @@ define("finance.i.ua.provider", ["jquery"], function($) {
                 });
                 askData = askData.filter(function(el) {
                     console.log("askData", parseInt(el.td[0].substr(0, 2)));
-                    return parseInt(el.td[1].substr(0, 2)) < 22; //TODO Refactor hardcoded filter
+                    return parseInt(el.td[1].substr(0, 2)) > 22; //TODO Refactor hardcoded filter
                 });
                 askData.reverse();
                 bidData = bidData.query.results.tbody.tr;
