@@ -8,8 +8,8 @@ requirejs.config({
     }
 });
 
-requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewModel", "randomDate"],
-    function(chart, ko, $, fprovider, ViewModel, random) {
+requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewModel", "randomDate", "nbu.provider"],
+    function(chart, ko, $, fprovider, ViewModel, random, nbu) {
         "use strict";
         var viewModel,
             dataHandler;
@@ -44,7 +44,7 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
             }
         };
 
-        viewModel = new ViewModel("?", "?", "?");
+        viewModel = new ViewModel("?", "?", "?", "?");
         ko.applyBindings(viewModel);
         random.start(100, viewModel);
         (function poll() {
@@ -55,8 +55,7 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
             };
             setTimeout(pollingFn, 1000);
         })();
-    });
-        refresher.refresh(function() {
-            fprovider.getData(dataHandler);
-        }, 10000);
+        nbu.getData(function(data) {
+            viewModel.nbu(nbu.filter(data));
+        });
     });

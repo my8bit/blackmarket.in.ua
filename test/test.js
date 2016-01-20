@@ -21,13 +21,16 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
                 askData.query.results.tbody.tr = [{
                     "mock": "of table header"
                 }, {
-                    "td": ["12:04", "121", "501$"],
+                    "td": ["12:04", "12", "501$"],
                     "class": "invalid"
                 }, {
-                    "td": ["12:05", "131", "551$"],
+                    "td": ["12:05", "13", "551$"],
                     "class": "invalid"
                 }, {
-                    "td": ["12:06", "141", "101$"],
+                    "td": ["12:06", "14", "101$"],
+                    "class": "invalid"
+                }, {
+                    "td": ["12:03", "141", "111$"],
                     "class": "invalid"
                 }];
                 bidData.query = {};
@@ -46,13 +49,13 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
                     "class": "invalid"
                 }];
                 finProvider.ajaxDone(askData, bidData, callback);
-                outputData = callback.args[0][0].data;
+                outputData = callback.args[0][0];
                 assert.equal(outputData[2][0], "12:06");
                 assert.equal(outputData[2][1], "12:05");
                 assert.equal(outputData[2][2], "12:04");
-                assert.equal(outputData[1][0], 141);
-                assert.equal(outputData[1][1], 131);
-                assert.equal(outputData[1][2], 121);
+                assert.equal(outputData[1][0], 14);
+                assert.equal(outputData[1][1], 13);
+                assert.equal(outputData[1][2], 12);
                 assert.equal(outputData[0][0], 101);
                 assert.equal(outputData[0][1], 551);
                 assert.equal(outputData[0][2], 501);

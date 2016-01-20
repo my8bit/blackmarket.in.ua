@@ -31,7 +31,7 @@
         chai: "//cdnjs.cloudflare.com/ajax/libs/chai/1.10.0/chai",
         mocha: "//cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.min",
         sinon: "//cdnjs.cloudflare.com/ajax/libs/sinon.js/1.7.3/sinon-min",
-        Squire: "//raw.githubusercontent.com/iammerrick/Squire.js/master/src/Squire",
+        Squire: "//cdn.rawgit.com/iammerrick/Squire.js/master/src/Squire",
         test: "../test/test"
       }
     });
@@ -57,12 +57,12 @@ requirejs(["jquery", "finance.i.ua.provider"],
       fprovider.getData(function(data) {
         var ask = "",
           bid = "";
-        data.data[0].forEach(function(el, idx) {
-          ask += el + "," + data.data[1][idx] + "," + data.data[2][idx] + "\n";
+        data[0].forEach(function(el, idx) {
+          ask += el + "," + data[1][idx] + "," + data[2][idx] + "\n";
         });
         //downloadCSV("ask", ask);
-        data.data[3].forEach(function(el, idx) {
-          bid += el + "," + data.data[4][idx] + "," + data.data[5][idx] + "\n";
+        data[3].forEach(function(el, idx) {
+          bid += el + "," + data[4][idx] + "," + data[5][idx] + "\n";
         });
         //downloadCSV("bid", bid);
         console.log(data);
