@@ -53,6 +53,9 @@ requirejs(["jquery", "finance.i.ua.provider"],
         e.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
         a.dispatchEvent(e);
       }
+      
+      /*Test API*/
+      window.downloadCSV = downloadCSV;
 
       fprovider.getData(function(data) {
         var ask = "",
@@ -65,7 +68,13 @@ requirejs(["jquery", "finance.i.ua.provider"],
           bid += el + "," + data[4][idx] + "," + data[5][idx] + "\n";
         });
         //downloadCSV("bid", bid);
-        console.log(data);
+        
+        /*Test API*/
+        window.dataFinance = {
+          ask: ask, 
+          bid:bid
+        };
+        //console.log(data);
         //amountAsk, rateAsk, timeAsk, amountBid, rateBid, timeBid
       });
   });

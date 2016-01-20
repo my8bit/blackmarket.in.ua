@@ -9,7 +9,7 @@ requirejs.config({
 });
 
 requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewModel", "randomDate", "nbu.provider"],
-    function(chart, ko, $, fprovider, ViewModel, random, nbu) {
+    function(chart, ko, $, financeProvider, ViewModel, random, nbuProvider) {
         "use strict";
         var viewModel,
             dataHandler;
@@ -22,7 +22,7 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
                         []
                     ];
                 }
-                var latest = fprovider.getLatest(data);
+                var latest = financeProvider.getLatest(data);
 
                 data[0].unshift("Количество");
                 data[1].unshift("Продажа");
@@ -47,15 +47,16 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
         viewModel = new ViewModel("?", "?", "?", "?");
         ko.applyBindings(viewModel);
         random.start(100, viewModel);
+        financeProvider.getData(dataHandler);
         (function poll() {
             var pollingFn = function() {
-                fprovider.getData(dataHandler).then(function() {
+                financeProvider.getData(dataHandler).then(function() {
                     poll();
                 });
             };
-            setTimeout(pollingFn, 1000);
+            setTimeout(pollingFn, 10000);
         })();
-        nbu.getData(function(data) {
-            viewModel.nbu(nbu.filter(data));
+        nbuProvider.getData(function(data) {
+            viewModel.nbu(nbuProvider.filter(data).rate);
         });
     });

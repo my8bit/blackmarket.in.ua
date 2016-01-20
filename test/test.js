@@ -95,19 +95,47 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
             assert.deepEqual(output, filtered);
         });
 
-        it("should return same arrays filtered and unfiltered", function() {
-            var cut = 1;
-            assert.deepEqual(finProvider.filter([1, 2, 3], cut), [1, 2, 3]);
-        });
-
-        it("should return [2] as filtered array", function() {
-            var cut = 0.5;
-            assert.deepEqual(finProvider.filter([1, 2, 3], cut), [2]);
-        });
-
-        it("should return [1, 2, 3] as filtered array", function() {
-            var cut = 0.51;
-            assert.deepEqual(finProvider.filter([1, 2, 3], cut), [1, 2, 3]);
+        describe("finance filter test", function() {
+            it("should return same arrays filtered and unfiltered", function() {
+                var cut = 1;
+                assert.deepEqual(finProvider.filter([1, 2, 3], cut), [1, 2, 3]);
+            });
+            xit("should return [2] as filtered array", function() {
+                var cut = 0.5;
+                assert.deepEqual(finProvider.filter([1, 2, 3], cut), [2]);
+            });
+            it("should return [1, 2, 3] as filtered array", function() {
+                var cut = 0.51;
+                assert.deepEqual(
+                    finProvider.filter(
+                        [1, 2, 3], cut
+                    ), [1, 2, 3]
+                );
+            });
+            xit("should return [1, 2, 3] as filtered array", function() {
+                var cut = 3.1;
+                assert.deepEqual(
+                    finProvider.filter(
+                        ["1", "2", "1", "3", "2", "3", "30"], cut
+                    ), ["1", "2", "1", "3", "2", "3"]
+                );
+            });
+            it("should return [1, 2, 3] as filtered array", function() {
+                var cut = 0.7;
+                assert.deepEqual(
+                    finProvider.filter(
+                        ["1", "2", "1", "3", "2", "3"], cut
+                    ), ["1", "2", "1", "3", "2", "3"]
+                );
+            });
+            it("should return [1, 2, 3] as filtered array", function() {
+                var cut = 0.51;
+                assert.deepEqual(
+                    finProvider.filter(
+                        ["1", "2", "1", "3", "2", "3"], cut
+                    ), ["1", "2", "1", "3"]
+                );
+            });
         });
 
         if (!isClient()) {
@@ -115,7 +143,7 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
                 var callback = sinon.spy();
                 nbuProvider.getData(callback);
                 assert.isTrue(callback.called);
-                //console.log(callback.args[0][0]);
+                assert.equal(callback.args[0][0][0].rate, "недоступен");
             });
         }
         it("should filter only USD in nbu", function() {
@@ -130,6 +158,7 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
                 "rate": 0.008573,
                 "cc": "UZS"
             }]);
+
             assert.deepEqual(data, {
                 "rate": 24.187399,
                 "cc": "USD"
@@ -158,10 +187,10 @@ if (!isClient()) {
         nodeRequire: function(config) {
             //console.log("config", config);
             return {
-                ajax: function(input) {
+                ajax: function() {
                     return {
                         done: function(callback) {
-                            callback(input);
+                            callback();
                         }
                     };
                 }
