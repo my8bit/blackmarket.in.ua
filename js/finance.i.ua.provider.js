@@ -86,14 +86,14 @@ define(["jquery"], function($) {
                 lastTimebid: data[5][data[5].length - 1]
             };
         },
-        ajaxDone: function(askData, bidData, callback) {
+        ajaxDone: function(askData, bidData, callback, invalid) {
             var resultsSum = 150;
             try {
                 askData = askData.query.results.tbody.tr;
                 askData.shift();
                 //askData.splice(resultsSum, askData.length);
                 askData = askData.filter(function(el) {
-                    return el.class === "invalid";
+                    return invalid ? el.class === "invalid" : el.class !== "invalid";
                 });
                 askData = askData.filter(function(el) {
                     //console.log("askData", parseInt(el.td[1].substr(0, 2)));
@@ -103,7 +103,7 @@ define(["jquery"], function($) {
                 bidData = bidData.query.results.tbody.tr;
                 bidData.shift();
                 bidData = bidData.filter(function(el) {
-                    return el.class === "invalid";
+                    return invalid ? el.class === "invalid" : el.class !== "invalid";
                 });
                 /*
                 bidData = bidData.filter(function(el) {

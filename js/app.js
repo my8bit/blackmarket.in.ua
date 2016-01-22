@@ -44,13 +44,13 @@ requirejs(["chart", "knockout-min", "jquery", "finance.i.ua.provider", "ViewMode
             }
         };
 
-        viewModel = new ViewModel("?", "?", "?", "?");
+        viewModel = new ViewModel("?", "?", "?", "?", true);
         ko.applyBindings(viewModel);
         random.start(100, viewModel);
-        financeProvider.getData(dataHandler);
+        financeProvider.getData(dataHandler, "usd", viewModel.closed());
         (function poll() {
             var pollingFn = function() {
-                financeProvider.getData(dataHandler).then(function() {
+                financeProvider.getData(dataHandler, "usd", viewModel.closed()).then(function() {
                     poll();
                 });
             };

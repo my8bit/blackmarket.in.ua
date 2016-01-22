@@ -48,7 +48,7 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
                     "td": ["12:03", "140", "100$"],
                     "class": "invalid"
                 }];
-                finProvider.ajaxDone(askData, bidData, callback);
+                finProvider.ajaxDone(askData, bidData, callback, true);
                 outputData = callback.args[0][0];
                 assert.equal(outputData[2][0], "12:06");
                 assert.equal(outputData[2][1], "12:05");
