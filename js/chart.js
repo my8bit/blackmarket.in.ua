@@ -14,10 +14,9 @@ define("chart", ["c3"], function(c3) {
                 ["Покупка", 2, 3],
                 ["x2", "12:01", "12:04"]
             ],
-            type: "timeseries",
             types: {
-                "Продажа": "line",
-                "Покупка": "line"
+                "Продажа": "scatter",
+                "Покупка": "scatter"
             }
         },
         zoom: {
