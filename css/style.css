@@ -1,5 +1,5 @@
 body {
-    background-color: black;
+    background-color: #333333;
     /*background: url("http://i.imgur.com/OnrRrxm.gif") no-repeat center center fixed;
     background-size: cover;*/
 }
@@ -58,14 +58,14 @@ h2, h1, h3 {
     color: white;
 }
 h1 {
-    font-size: 45px;
+    font-size: 35px;
 }
 h2 {
-    font-size: 30px;
+    font-size:25px;
 }
 h3 {
     margin-top: 0; 
-    font-size: 20px;
+    font-size: 18px;
 }
 h1 a:visited {
     color: white;
