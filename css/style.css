@@ -1,136 +1,37 @@
 body {
-    background-color: black;
-    /*background: url("http://i.imgur.com/OnrRrxm.gif") no-repeat center center fixed;
-    background-size: cover;*/
-}
-.update-info {
-    color: white;
-    margin-bottom: 10px;
-}
-.update-info a {
-    color: white;
-}
-@font-face {
-  font-family: 'PT Sans';
-  font-style: normal;
-  font-weight: 400;
-  src: local('PT Sans'), local('PT_Sans-Narrow.ttf');
+  background: #fff url("../grey_wash_wall.png") left top;
 }
 .c3-axis, g.tick, .c3-grid  {
-    font-family: 'PT Sans Narrow', sans-serif;
-    fill: white;
-    font-size: 14px;
-    /*stroke: white;*/
-}
-.c3-grid  {
-    fill: white;
+  fill: black;
+  font-size: 12px;
 }
 .c3-tooltip-name {
-  stroke: white; 
+  stroke: black;
+  background-color: black;
 }
 .c3-tooltip {
   fill: orange;
-  stroke:orange; 
+  stroke:orange;
 }
-.c3 path, .c3 line {
-  fill: none;
-  stroke: white;
+.c3 path {
+  stroke: black;
 }
-#octocat {
-    width: 48px;
-    margin: 0 auto;
-    display: block;
+.c3 g.tick line {
+  stroke: black;
 }
-#content {
-    font-family: 'PT Sans Narrow', sans-serif;
-    display: table;
-    position: absolute;
-    width: 100%;
-    /*height: 75%;*/
+.chart .loader svg path,
+.chart .loader svg rect {
+  fill: #FF6700;
 }
-#content #center {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
+.demo-graphs {
+  padding-right: 1em;
 }
-h2, h1, h3 {
-    margin: 15px;
-    color: white;
+section {
+  width: 100%;
+  margin: 0;
+  max-width: none;
+  height: 100vh;
 }
-h1 {
-    font-size: 45px;
-}
-h2 {
-    font-size: 30px;
-}
-h3 {
-    margin-top: 0; 
-    font-size: 20px;
-}
-h1 a:visited {
-    color: white;
+section:nth-of-type(2n) {
 }
 
-h5 a,
-h3 a,
-h2 a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px dashed gray;
-}
-.addthis_native_toolbox {
-    width: 500px;
-    margin: 0 auto;
-}
-
-progress {
-    margin: 10px;
-    -webkit-appearance: none;
-    appearance:         none;
-    height:             2px;
-    width:              500px;
-    left: 250px;
-    position: relative;
-
-/*  position:                absolute;
-    left:                    50%;
-    top:                      50%;
-     */
-    -webkit-transform:  translate(-50%, -50%);
-    -moz-transform:     translate(-50%, -50%);
-    -ms-transform:      translate(-50%, -50%);
-    -o-transform:       translate(-50%, -50%);
-    transform:            translate(-50%, -50%);
-}
-progress::-webkit-progress-bar {
-    background: #C7C7CC;
-}
-progress::-webkit-progress-value {
-    background: #007AFF;
-}
-
-
-#chart {
-    width: 660px;
-    margin: 0 auto;
-}
-
-#chart, #indicators {
-    display: inline-block;
-}
-
-#indicators {
-    vertical-align: top;;
-    width: 300px;
-    color: white;/*TODO refactor*/
-}
-
-#indicators ul {
-    font-style: italic;
-    text-align: initial;/*TODO refactor*/
-    list-style: none;
-}
-
-#indicators ul span {
-    float: right;
-}

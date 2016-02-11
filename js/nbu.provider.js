@@ -1,32 +1,29 @@
-define(["jquery"], function($) {
+define(["jquery", "lodash"], function($, _) {
     "use strict";
-
-    function checkNested(obj) {
-        var args = Array.prototype.slice.call(arguments, 1);
-
-        for (var i = 0; i < args.length; i++) {
-            if (!obj || !obj.hasOwnProperty(args[i])) {
-                return false;
-            }
-            obj = obj[args[i]];
-        }
-        return true;
-    }
-
     return {
-        getData: function(callback) {
+        getData: function(callback, date) {
+            var date = date || "",
+                self = this;
             $.ajax({
-                url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20json%20where%20url%3D%22http%3A%2F%2Fbank.gov.ua%2FNBUStatService%2Fv1%2Fstatdirectory%2Fexchange%3Fjson%22&format=json&diagnostics=true&callback="
+                url: "https://query.yahooapis.com/v1/public/yql" +
+                    "?q=select%20*%20from%20json%20where%20url%3D%22" +
+                    "http%3A%2F%2Fbank.gov.ua%2FNBUStatService%2Fv1%2Fstatdirectory%2Fexchange%3F" +
+                    date + "json" +
+                    "%22&format=json&diagnostics=true&callback="
             }).done(function(data) {
-                if (checkNested(data, "query", "results", "json", "json")) {
-                    callback(data.query.results.json.json);
-                } else {
-                    callback([{
-                        cc: "USD",
-                        rate: "недоступен"
-                    }]);
-                }
+                var result = _.get(data, ["query", "results", "json", "json"], [{
+                    cc: "USD",
+                    rate: "недоступен"
+                }]);
+                callback(result);
             });
+        },
+        getYesterdayData: function(callback) {
+            var day = new Date(),
+                yesterday;
+            day.setDate(day.getDate() - 1);
+            yesterday = day.toISOString().slice(0, 10).replace(/-/g, "");
+            this.getData(callback, "date=" + yesterday + "%26");
         },
         filter: function(data) {
             if (data && data.length) {

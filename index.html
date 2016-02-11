@@ -1,61 +1,163 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="ru">
   <head>
     <title>Черный рынок валюты в Киеве</title>
-    <!--<meta http-equiv="refresh" content="2">-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google-site-verification" content="lgfsIntkcLp40eq_sBw4bxQ-XVAnGplBZLRTV7U-4NI" />
-    <meta name="keywords" content="черный рынок валюты, чёрный рынок валюты, валюта, валюта в Киеве, купить доллар, продать доллар, обмен валют, курс валют">
+    <meta name="keywords" content="черный рынок валюты, чёрный рынок валюты, валюта, валюта в Киеве, купить доллар, продать доллар, обмен валют, курс валют, миняйло, miniaylo, i.ua, minfin, минфин">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/ico" href="http://www.iconarchive.com/download/i96600/iconsmind/outline/Monitor-Analytics.ico">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css" rel="stylesheet" type="text/css" />
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css" rel="stylesheet" type="text/css" />
     <link href="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.9/c3.min.css" rel="stylesheet" type="text/css" />
-    <link href="css/style.css" rel="stylesheet" type="text/css"/>
-    <link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:200,400,700&amp;subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="//code.getmdl.io/1.1.0/material.blue_grey-indigo.min.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/c3/0.4.9/c3.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/loading.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/smoothscroll/1.4.1/SmoothScroll.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.min.js" type="text/javascript"></script>
     <script src="js/app.js" type="text/javascript"></script>
   </head>
   <body>
-    <div id="content">
-      <div id="center">
-        <h1 class="longShad">Чёрный черный рынок валюты в Киеве на сегодня</h1>
-        <h2>По какому курсу купить доллары?</h2>
-        <h2>
-        На черном рынке <a href="http://finance.i.ua/market/kiev/usd/?type=2">прямо сейчас</a> в <span data-bind="text: time"></span>, продают <span data-bind="text: amount"></span> по курсу <span data-bind="text: rate"></span>
-        </h2>
-        <div>
-          <div id="chart"></div>
-          <div id="indicators">
-            <h3>Знаете ли вы, что?</h3>
-            <ul id="indicator-items">
-              <li>Официальный курс <span data-bind="text: nbu">?</span></li>
-              <!--<li>Официальный курс <span data-bind="text: nbu">?</span></li>
-              <li>Отношение колличество ордеров на покупку к колличеству ордеров на продажу<span data-bind="text: nbu">?</span></li>
-              <li>Отношение колличества спроса к предложению (продваемой от всостребованой)<span data-bind="text: nbu">?</span></li>
-              <li>Средневзвешенный курс покупки <span> в разработке</span></li>
-              <li>Средневзвешенный курс продажи <span> в разработке</span></li>
-              <li>Отношение средневзвешенного к официальному <span> тоже</span></li>
-              <li></li>
-              <li></li>-->
-            </ul>
-          </div>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <h3 class="mdl-layout-title">Чёрный рынок валюты в Киеве</h3>
+          <div class="mdl-layout-spacer"></div>
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <!-- 
+            <a class="mdl-navigation__link" data-scroll href="#settings">Настройки</a>
+            <a class="mdl-navigation__link" data-scroll href="#help">Помощь</a>
+            <a class="mdl-navigation__link" data-scroll href="#about">О Сайте</a> -->
+          </nav>
         </div>
-        
-        <div class="update-info">
-          <progress value="" max="100" id="progress"></progress>
-          <div>Данные по закрытым заявкам: <input type="checkbox" data-bind="checked: closed" /></div>
-          <div>
-          Данные об обмене валют обновляются с сайта <a href="http://finance.i.ua/market/kiev/">http://finance.i.ua/</a> раз в 10 секунд
-          </div>
-        </div>
-        <div class="addthis_sharing_toolbox"></div>
-        <a id="octocat" href="https://github.com/my8bit/blackmarket.in.ua">
-          <img src="github-6-48-wht.png" alt="https://github.com/my8bit">
-        </a>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Сервисы</span>
+        <nav class="mdl-navigation">
+          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#finance">finance</a>
+          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#minfin">minfin</a>
+          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#miniaylo">miniaylo</a>
+          <a data-scroll class="mdl-navigation__link" data-bind="click: onePage, text: collaps" href="#"></a>
+        </nav>
       </div>
-    </div>
-    <script type="text/javascript" src="js/google-analytics.js"></script>
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5497ec8029ed739f" async="async"></script>
-  </body>
-</html>
+      <main class="mdl-layout__content">
+      <div class="content mdl-grid">
+        <!-- <div class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
+          <div class="mdl-card__supporting-text">
+            <h2>Добро пожаловать на агрегатор курсов валют - blackmarket.in.ua</h2>
+            <h3>Для чего нужен этот сайт?</h3>
+            <p>
+              blackmarket.in.ua собирает информацию о заявках физлиц на покупку и продажу валюты
+            из нескольких сайтов. С помощью графиков которые строятся в режиме реального времени 
+            вы можете быстро и точно сориентироватся в ситцации с курсом доллара и 
+            перейти на ту площадку, которая покажется вам более выгодной.
+            </p>
+            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>
+            <h5>Lorem ipsum dolor sit amet</h5>
+            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>
+            <h5>Lorem ipsum dolor sit amet</h5>
+            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>
+            <h5>Lorem ipsum dolor sit amet</h5>
+            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>
+          </div>
+        </div> -->
+        <div id="finance" data-bind="css: chartSize">
+          <div class="mdl-card__title">
+            <div class="mdl-card__title-text">finance.i.ua&nbsp;
+              <a href="//finance.i.ua/market/kiev/usd" target="_blank"><i class="material-icons">launch</i></a>
+            </div>
+          </div>
+          <div class="demo-graphs">
+            <div class="chart" id="chartFinIUa">
+              <div class="loading">
+                <div class="loading-1"></div>
+                <div class="loading-2"></div>
+                <div class="loading-3"></div>
+                <div class="loading-4"></div>
+                <div class="loading-5"></div>
+                <div class="loading-6"></div>
+                <div class="loading-7"></div>
+                <div class="loading-8"></div>
+                <div class="loading-9"></div>
+                <div class="loading-10"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mdl-card__supporting-text mdl-typography--body-2-force-preferred-font-color-contrast mdl-typography--text-center">
+            Данные об обмене валют обновляются с сайта <a href="http://finance.i.ua/">http://finance.i.ua/</a> раз в минуту
+          </div>
+        </div>
+        <div id="miniaylo" data-bind="css: chartSize">
+          <div class="mdl-card__title">
+            <div class="mdl-card__title-text">miniaylo.finance.ua&nbsp;
+              <a href="//miniaylo.finance.ua/" target="_blank"><i class="material-icons">launch</i></a>
+            </div>
+          </div>
+          <div class="demo-graphs">
+            <div class="chart" id="chartFin">
+              <div class="loading">
+                <div class="loading-1"></div>
+                <div class="loading-2"></div>
+                <div class="loading-3"></div>
+                <div class="loading-4"></div>
+                <div class="loading-5"></div>
+                <div class="loading-6"></div>
+                <div class="loading-7"></div>
+                <div class="loading-8"></div>
+                <div class="loading-9"></div>
+                <div class="loading-10"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mdl-card__supporting-text mdl-typography--body-2-force-preferred-font-color-contrast mdl-typography--text-center">
+            Данные об обмене валют обновляются с сайта <a href="http://miniaylo.finance.ua/">http://miniaylo.finance.ua/</a> раз в минуту
+          </div>
+        </div>
+        <div id="minfin" data-bind="css: chartSize">
+          <div class="mdl-card__title">
+            <div class="mdl-card__title-text">minfin.com.ua&nbsp;
+              <a href="//minfin.com.ua/currency/auction/usd" target="_blank"><i class="material-icons">launch</i></a>
+            </div>
+          </div>
+          <div class="demo-graphs">
+            <div class="chart" id="chartMinFin">
+              <div class="loading">
+                <div class="loading-1"></div>
+                <div class="loading-2"></div>
+                <div class="loading-3"></div>
+                <div class="loading-4"></div>
+                <div class="loading-5"></div>
+                <div class="loading-6"></div>
+                <div class="loading-7"></div>
+                <div class="loading-8"></div>
+                <div class="loading-9"></div>
+                <div class="loading-10"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mdl-card__supporting-text mdl-typography--body-2-force-preferred-font-color-contrast mdl-typography--text-center">
+            Данные об обмене валют обновляются с сайта <a href="http://minfin.com.ua/currency/auction/usd/">http://minfin.com.ua/</a> раз в минуту
+          </div>
+        </div>
+      </div>
+      <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+          <div class="mdl-logo">blackmarket.in.ua</div>
+          <ul class="mdl-mini-footer__link-list">
+            <!--<li><a href="#">Помощь</a></li>
+            <li><a href="#">О сайте</a></li>-->
+            <li><div class="addthis_sharing_toolbox"></div></li>
+          </ul>
+        </div>
+      </footer>
+      </main>
+      <div class="mdl-layout__obfuscator"></div>
+      <script src="https://code.getmdl.io/1.1.0/material.min.js"></script>
+      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5497ec8029ed739f" async="async"></script>
+      <script type="text/javascript" src="js/google-analytics.js"></script>
+    </body>
+  </html>

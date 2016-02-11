@@ -2,37 +2,27 @@ define(["jquery", "lodash"], function($, _) {
     "use strict";
     return {
         getData: function(callback, currency, invalid) {
-            currency = currency || "usd";
             var askDate,
                 self = this,
                 request = $.ajax({
                     url: "https://query.yahooapis.com/v1/public/yql",
                     data: {
                         q: "select * from html where " +
-                            "url='http://finance.i.ua/market/kiev/" +
-                            currency + "/?type=2'" +
-                            " and xpath='//html/body/div[1]/div[5]/div[2]/div/div[2]/div[3]/table/tbody'",
+                            "url='http://miniaylo.finance.ua/data/for-table'",
                         format: "json"
                     }
-                }),
-                chained = request.then(function(data) {
-                    askDate = data;
-                    return $.ajax({
-                        url: "https://query.yahooapis.com/v1/public/yql",
-                        data: {
-                            q: "select * from html where " +
-                                "url='http://finance.i.ua/market/kiev/" +
-                                currency + "/?type=1'" +
-                                " and xpath='//html/body/div[1]/div[5]/div[2]/div/div[2]/div[3]/table/tbody'",
-                            format: "json"
-                        }
-                    });
-                });
-            chained.done(function(bidData) {
-                self.ajaxDone(askDate, bidData, callback, invalid);
+                })
+            request.done(function(bidData) {
+                self.ajaxDone(bidData, callback);
             });
-            return chained;
         },
+
+        /*
+select * from html where url='http://minfin.com.ua/currency/auction/usd/sell/kiev/' and xpath='/html/body/div[2]/div[1]/div[2]/div[2]/div[3]/div[last()]' and ua="Mozilla/5.0 (Linux; U; Android 4.0.1; ja-jp; Galaxy Nexus Build/ITL41D) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"';
+
+
+*/
+
         /** Filter all values that low or high the cut value
          * For example array = [100,3,90] and cut = 15
          * result will be [100, 90] because 3 is more than 15 percent
@@ -128,9 +118,63 @@ define(["jquery", "lodash"], function($, _) {
                 lastTimebid: _.last(data[5])
             };
         },
-        ajaxDone: function(askData, bidData, callback, invalid) {
+        ajaxDone: function(data, callback) {
             var resultsSum = 150;
-            try {
+            var dataStr = data.query.results.body;
+            var require = function(some, cb) {
+                var Loader = {};
+                Loader.load = function(data) {
+                    var allData = data.currency.map(function(el, idx) {
+                        if (el === "USD" && data.location[idx][0] === 2) {
+                            return {
+                                time: data.time[idx],
+                                amount: data.amount[idx],
+                                rate: data.rate[idx],
+                                type: data.type[idx]
+                            }
+                        }
+                    }).filter(function(el) {
+                        return !!el;
+                    });
+                    var askData = allData.map(function(el) {
+                        if (el.type) {
+                            return {
+                                time: el.time,
+                                amount: el.amount,
+                                rate: el.rate
+                            }
+                        }
+                        // body...
+                    }).filter(function(el) {
+                        return !!el;
+                    });
+                    var bidData = allData.map(function(el) {
+                        // body...
+                        if (!el.type) {
+                            return {
+                                time: el.time,
+                                amount: el.amount,
+                                rate: el.rate
+                            }
+                        }
+                    }).filter(function(el) {
+                        return !!el;
+                    });
+                    callback([
+                        _.map(askData, "amount"),
+                        _.map(askData, "rate"),
+                        _.map(askData, "time"),
+                        _.map(bidData, "amount"),
+                        _.map(bidData, "rate"),
+                        _.map(bidData, "time")
+                    ]);
+
+
+                };
+                cb.call(null, Loader);
+            };
+            eval(dataStr);
+            /*try {
                 askData = askData.query.results.tbody.tr;
                 //askData = _.get(askData, "query.results.tbody.tr", []);
                 askData.shift();
@@ -153,41 +197,41 @@ define(["jquery", "lodash"], function($, _) {
                 bidData = bidData.filter(function(el) {
                     return parseInt(el.td[0].substr(0, 2)) < 22; //TODO Refactor hardcoded filter
                 });
-                */
+                
                 //bidData.splice(resultsSum, bidData.length);
-                bidData.reverse();
-            } catch (err) {
-                callback({
-                    data: [],
-                    lastRate: "неизвестному",
-                    lastAmount: "что-то",
-                    lastTime: "неизвестное время"
-                });
+                //bidData.reverse();
+            //} catch (err) {
+            //    callback({
+                    //data: [],
+                    //lastRate: "неизвестному",
+                   // lastAmount: "что-то",
+                  //  lastTime: "неизвестное время"
+                //});
                 //console.warn("Данные недоступны. Перезагрузите пожалуйста страницу.");
                 //window.alert("Данные недоступны. Перезагрузите пожалуйста страницу.");
-                return;
-            }
+                //return;
+            }*/
             /*
             var cut = 0.1; //TODO refactor*/
             //rateAsk = this.filter(rateAsk, cut);
             //rateBid = this.filter(rateBid, cut);
-            var dataMapFn = function(el) {
-                return {
-                    time: el.td[0],
-                    amount: parseInt(el.td[2]),
-                    rate: parseFloat(el.td[1])
-                };
-            };
-            var askRateData = askData.map(dataMapFn);
-            var bidRateData = bidData.map(dataMapFn);
-            callback([
-                _.map(askRateData, "amount"),
-                _.map(askRateData, "rate"),
-                _.map(askRateData, "time"),
-                _.map(bidRateData, "amount"),
-                _.map(bidRateData, "rate"),
-                _.map(bidRateData, "time")
-            ]);
+            // var dataMapFn = function(el) {
+            //     return {
+            //         time: el.td[0],
+            //         amount: parseInt(el.td[2]),
+            //         rate: parseFloat(el.td[1])
+            //     };
+            // };
+            // var askRateData = askData.map(dataMapFn);
+            // var bidRateData = bidData.map(dataMapFn);
+            // callback([
+            //     _.map(askRateData, "amount"),
+            //     _.map(askRateData, "rate"),
+            //     _.map(askRateData, "time"),
+            //     _.map(bidRateData, "amount"),
+            //     _.map(bidRateData, "rate"),
+            //     _.map(bidRateData, "time")
+            // ]);
         }
     };
 });

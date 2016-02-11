@@ -2,7 +2,7 @@ var isClient = function() {
     return typeof module == "undefined";
 };
 
-var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) {
+var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider, utils) {
     "use strict";
     var assert = chai.assert;
     describe("Specification of provider", function() {
@@ -95,8 +95,31 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
             assert.deepEqual(output, filtered);
         });
 
+        describe("utils test", function() {
+            it("should return 3", function() {
+                assert.equal(utils.mapWeight(), 3);
+            });
+        });
+
         describe("finance filter test", function() {
+            /*a = [1, 2, 3, 3, 3, 3, 4, 5, 6, 6];
+            b = {};
+            sum = 0;
+            a.forEach(function(el) {
+                var currentEl = el + "";
+                //console.log("currentEl", currentEl);
+                if (b[currentEl]) {
+                    b[currentEl]++;
+                } else {
+                    b[currentEl] = 1;
+                }
+
+            });*/
             it("should return same arrays filtered and unfiltered", function() {
+                //var cut = 1;
+                assert.deepEqual(finProvider.filter([1, 2, 3, 3, 3, 3, 4, 5, 6, 6]), 3.6);
+            });
+            xit("should return same arrays filtered and unfiltered", function() {
                 var cut = 1;
                 assert.deepEqual(finProvider.filter([1, 2, 3], cut), [1, 2, 3]);
             });
@@ -104,7 +127,7 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
                 var cut = 0.5;
                 assert.deepEqual(finProvider.filter([1, 2, 3], cut), [2]);
             });
-            it("should return [1, 2, 3] as filtered array", function() {
+            xit("should return [1, 2, 3] as filtered array", function() {
                 var cut = 0.51;
                 assert.deepEqual(
                     finProvider.filter(
@@ -120,7 +143,7 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
                     ), ["1", "2", "1", "3", "2", "3"]
                 );
             });
-            it("should return [1, 2, 3] as filtered array", function() {
+            xit("should return [1, 2, 3] as filtered array", function() {
                 var cut = 0.7;
                 assert.deepEqual(
                     finProvider.filter(
@@ -128,7 +151,7 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
                     ), ["1", "2", "1", "3", "2", "3"]
                 );
             });
-            it("should return [1, 2, 3] as filtered array", function() {
+            xit("should return [1, 2, 3] as filtered array", function() {
                 var cut = 0.51;
                 assert.deepEqual(
                     finProvider.filter(
@@ -145,6 +168,7 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
                 assert.isTrue(callback.called);
                 assert.equal(callback.args[0][0][0].rate, "недоступен");
             });
+
         }
         it("should filter only USD in nbu", function() {
             var data = nbuProvider.filter([{
@@ -169,8 +193,8 @@ var testRunner = function(Squire, mocha, chai, sinon, finProvider, nbuProvider) 
 };
 
 if (isClient()) {
-    define("test", ["Squire", "mocha", "chai", "sinon", "finance.i.ua.provider", "nbu.provider"],
-        function(Squire, mocha, chai, sinon, finProvider, nbuProvider) {
+    define("test", ["Squire", "mocha", "chai", "sinon", "finance.i.ua.provider", "nbu.provider", "utils"],
+        function(Squire, mocha, chai, sinon, finProvider, nbuProvider, utils) {
             "use strict";
             testRunner.apply(this, arguments);
         });
@@ -181,24 +205,30 @@ if (!isClient()) {
         sinon = require("sinon"),
         chai = require("chai"),
         nbuProvider,
+        utils,
         finProvider;
 
     requirejs.config({
         nodeRequire: function(config) {
-            //console.log("config", config);
-            return {
-                ajax: function() {
-                    return {
-                        done: function(callback) {
-                            callback();
-                        }
-                    };
-                }
-            };
+            // Mock jQuery
+            if (config === "jquery") {
+                return {
+                    ajax: function() {
+                        return {
+                            done: function(callback) {
+                                callback();
+                            }
+                        };
+                    }
+                };
+            } else {
+                return require(config);
+            }
         }
     });
 
     finProvider = requirejs("./js/finance.i.ua.provider.js");
     nbuProvider = requirejs("./js/nbu.provider.js");
-    testRunner.apply(this, ["", "", chai, sinon, finProvider, nbuProvider]);
+    utils = requirejs("./js/utils.js");
+    testRunner.apply(this, ["", "", chai, sinon, finProvider, nbuProvider, utils]);
 }
