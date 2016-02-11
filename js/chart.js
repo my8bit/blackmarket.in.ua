@@ -51,6 +51,6 @@ define("chart", ["c3", "utils"], function(c3, utils) {
                     }
                 }
             }
-        });
-    }
+        }
+    });
 });

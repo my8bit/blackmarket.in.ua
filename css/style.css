@@ -19,6 +19,7 @@ body {
 .c3 g.tick line {
   stroke: black;
 }
+
 .chart .loader svg path,
 .chart .loader svg rect {
   fill: #FF6700;
