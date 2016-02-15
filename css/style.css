@@ -1,6 +1,11 @@
 body {
   background: #fff url("../grey_wash_wall.png") left top;
 }
+@media screen and (max-width: 1024px) {
+    .mdl-layout__header-row {
+        padding: 0 16px 0 52px;
+    }
+}
 .c3-axis, g.tick, .c3-grid  {
   fill: black;
   font-size: 12px;

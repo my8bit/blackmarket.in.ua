@@ -3,6 +3,7 @@
   <head>
     <title>Черный рынок валюты в Киеве</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="rgb(96, 125, 139)">
     <meta name="google-site-verification" content="lgfsIntkcLp40eq_sBw4bxQ-XVAnGplBZLRTV7U-4NI" />
     <meta name="keywords" content="черный рынок валюты, чёрный рынок валюты, валюта, валюта в Киеве, купить доллар, продать доллар, обмен валют, курс валют, миняйло, miniaylo, i.ua, minfin, минфин">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -25,46 +26,39 @@
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
-          <h3 class="mdl-layout-title">Чёрный рынок валюты в Киеве</h3>
+          <h3 class="mdl-layout-title">Чёрный рынок валюты <small>в Киеве</small></h3>
           <div class="mdl-layout-spacer"></div>
           <nav class="mdl-navigation mdl-layout--large-screen-only">
-          <!-- 
             <a class="mdl-navigation__link" data-scroll href="#settings">Настройки</a>
             <a class="mdl-navigation__link" data-scroll href="#help">Помощь</a>
-            <a class="mdl-navigation__link" data-scroll href="#about">О Сайте</a> -->
+            <a class="mdl-navigation__link" data-scroll href="#about">О Сайте</a>
           </nav>
         </div>
       </header>
       <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Сервисы</span>
         <nav class="mdl-navigation">
-          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#finance">finance</a>
-          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#minfin">minfin</a>
-          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#miniaylo">miniaylo</a>
+          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#finance">i.ua - finance.i.ua</a>
+          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#minfin">Минфин - minfin</a>
+          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#miniaylo">Миняйло - miniaylo</a>
+          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#forecast">Прогноз</a>
           <a data-scroll class="mdl-navigation__link" data-bind="click: onePage, text: collaps" href="#"></a>
         </nav>
       </div>
       <main class="mdl-layout__content">
       <div class="content mdl-grid">
-        <!-- <div class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
+        <div id="help" class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col">
           <div class="mdl-card__supporting-text">
-            <h2>Добро пожаловать на агрегатор курсов валют - blackmarket.in.ua</h2>
-            <h3>Для чего нужен этот сайт?</h3>
+            <h4>Добро пожаловать на агрегатор курсов валют - blackmarket.in.ua</h4>
+            <h5>Какая основная цель этого сайта?</h5>
             <p>
-              blackmarket.in.ua собирает информацию о заявках физлиц на покупку и продажу валюты
-            из нескольких сайтов. С помощью графиков которые строятся в режиме реального времени 
-            вы можете быстро и точно сориентироватся в ситцации с курсом доллара и 
-            перейти на ту площадку, которая покажется вам более выгодной.
+            Это предоставление агрегированной информации о заявках физлиц на покупку и продажу валюты из открытых источников. 
+            С помощью графиков которые строятся в режиме реального времени вы можете быстро 
+            и точно сориентироваться в ситуации с курсом доллара и перейти к сделке которая 
+            покажется вам интересной на том или ином сайте.
             </p>
-            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>
-            <h5>Lorem ipsum dolor sit amet</h5>
-            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>
-            <h5>Lorem ipsum dolor sit amet</h5>
-            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>
-            <h5>Lorem ipsum dolor sit amet</h5>
-            Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis <a href="#">proident minim</a>
           </div>
-        </div> -->
+        </div>
         <div id="finance" data-bind="css: chartSize">
           <div class="mdl-card__title">
             <div class="mdl-card__title-text">finance.i.ua&nbsp;
@@ -143,21 +137,54 @@
             Данные об обмене валют обновляются с сайта <a href="http://minfin.com.ua/currency/auction/usd/">http://minfin.com.ua/</a> раз в минуту
           </div>
         </div>
-      </div>
+
+        <div id="forecast" class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--6-col">
+            <iframe src="https://docs.google.com/forms/d/1xfXD5njsXEv2-jZkJJ9ghmRoTNbJJj8l6VHKwXFiT9w/viewform?embedded=true" height="850" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+        </div>
+<!--
+        <div class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col">
+            <iframe width="289.5" height="360.4177852348994" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1fQ2uFI9FxASABpOXmJ6_ZiIE7M38CcBs0wKMzpmLICQ/pubchart?oid=2063450333&amp;format=interactive"></iframe>
+        </div>
+-->
+<!--
+        <div class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col">
+          <canvas id="myCanvas" width="592" height="800" style="padding-top: 9px; padding-left: 9px; zoom: 58%;"></canvas>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+          <script type="text/javascript" src="//cdn.rawgit.com/my8bit/5b87c550ebbc36da202e/raw/e1be28b1777300ef5d088b1a945a477712e86578/bundle.js"></script>
+        </div>
+-->
+        <div style="padding: 10px;" class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--6-col">
+          <div id="disqus_thread"></div>
+        </div>
+        </div>
       <footer class="mdl-mini-footer">
         <div class="mdl-mini-footer__left-section">
           <div class="mdl-logo">blackmarket.in.ua</div>
           <ul class="mdl-mini-footer__link-list">
-            <!--<li><a href="#">Помощь</a></li>
-            <li><a href="#">О сайте</a></li>-->
+            <li><a href="#">Помощь</a></li>
+            <li><a href="#">О сайте</a></li>
             <li><div class="addthis_sharing_toolbox"></div></li>
           </ul>
         </div>
       </footer>
       </main>
       <div class="mdl-layout__obfuscator"></div>
+      <script>
+      var disqus_config = function () {
+        this.page.url = "http://blackmarket.in.ua";
+        this.page.identifier = "blackmarket";
+      };
+      (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = '//blackmarketinua.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
       <script src="https://code.getmdl.io/1.1.0/material.min.js"></script>
       <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5497ec8029ed739f" async="async"></script>
       <script type="text/javascript" src="js/google-analytics.js"></script>
+      <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter35386170 = new Ya.Metrika({ id:35386170, clickmap:true, trackLinks:true, accurateTrackBounce:true, trackHash:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/35386170" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     </body>
   </html>
