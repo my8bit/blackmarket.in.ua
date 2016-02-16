@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="rgb(96, 125, 139)">
     <meta name="google-site-verification" content="lgfsIntkcLp40eq_sBw4bxQ-XVAnGplBZLRTV7U-4NI" />
-    <meta name="keywords" content="черный рынок валюты, чёрный рынок валюты, валюта, валюта в Киеве, купить доллар, продать доллар, обмен валют, курс валют, миняйло, miniaylo, i.ua, minfin, минфин">
+    <meta name="keywords" content="черный рынок валюты, чёрный рынок валюты, валюта, валюта в Киеве, купить доллар, продать доллар, обмен валюты, курс валют, миняйло, miniaylo, i.ua, minfin, минфин, гривна">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/ico" href="http://www.iconarchive.com/download/i96600/iconsmind/outline/Monitor-Analytics.ico">
     <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css" rel="stylesheet" type="text/css" />
@@ -41,7 +41,8 @@
           <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#finance">i.ua - finance.i.ua</a>
           <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#minfin">Минфин - minfin</a>
           <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#miniaylo">Миняйло - miniaylo</a>
-          <a data-scroll data-bind="visible: menuCollapsed" class="mdl-navigation__link" href="#forecast">Прогноз</a>
+          <a data-scroll class="mdl-navigation__link" href="#forecast">Прогноз</a>
+          <a data-scroll class="mdl-navigation__link" href="#comments">Комментарии</a>
           <a data-scroll class="mdl-navigation__link" data-bind="click: onePage, text: collaps" href="#"></a>
         </nav>
       </div>
@@ -52,10 +53,23 @@
             <h4>Добро пожаловать на агрегатор курсов валют - blackmarket.in.ua</h4>
             <h5>Какая основная цель этого сайта?</h5>
             <p>
-            Это предоставление агрегированной информации о заявках физлиц на покупку и продажу валюты из открытых источников. 
-            С помощью графиков которые строятся в режиме реального времени вы можете быстро 
-            и точно сориентироваться в ситуации с курсом доллара и перейти к сделке которая 
-            покажется вам интересной на том или ином сайте.
+              Это предоставление информации из открытых источников о заявках физлиц на покупку и продажу
+              валюты.
+              С помощью графиков которые генерируются в режиме реального времени вы можете быстро
+              и точно сориентироваться в ситуации с курсом доллара и перейти к онлайн сделке которая
+              покажется вам интересной на том или ином сайте.
+            </p>
+            <h5>По каким валютам доступны данные?</h5>
+            <p>
+              На данный момент графики доступны только для пары доллар-гривна.
+            </p>
+            <h5>По каким регионам доступны данные?</h5>
+            <p>
+              На данный момент графики доступны только для Киева.
+            </p>
+            <h5>Как читать графики?</h5>
+            <p>
+              Графики имеют вид диаграммы распределения. Это сделано для того чтоб отразить распределения количества заявок по времени.
             </p>
           </div>
         </div>
@@ -82,7 +96,7 @@
             </div>
           </div>
           <div class="mdl-card__supporting-text mdl-typography--body-2-force-preferred-font-color-contrast mdl-typography--text-center">
-            Данные об обмене валют обновляются с сайта <a href="http://finance.i.ua/">http://finance.i.ua/</a> раз в минуту
+            Данные об обмене валюты обновляются с сайта <a href="http://finance.i.ua/">http://finance.i.ua/</a> раз в минуту
           </div>
         </div>
         <div id="miniaylo" data-bind="css: chartSize">
@@ -108,7 +122,7 @@
             </div>
           </div>
           <div class="mdl-card__supporting-text mdl-typography--body-2-force-preferred-font-color-contrast mdl-typography--text-center">
-            Данные об обмене валют обновляются с сайта <a href="http://miniaylo.finance.ua/">http://miniaylo.finance.ua/</a> раз в минуту
+            Данные об обмене валюты обновляются с сайта <a href="http://miniaylo.finance.ua/">http://miniaylo.finance.ua/</a> раз в минуту
           </div>
         </div>
         <div id="minfin" data-bind="css: chartSize">
@@ -134,45 +148,49 @@
             </div>
           </div>
           <div class="mdl-card__supporting-text mdl-typography--body-2-force-preferred-font-color-contrast mdl-typography--text-center">
-            Данные об обмене валют обновляются с сайта <a href="http://minfin.com.ua/currency/auction/usd/">http://minfin.com.ua/</a> раз в минуту
+            Данные об обмене валюты обновляются с сайта <a href="http://minfin.com.ua/currency/auction/usd/">http://minfin.com.ua/</a> раз в минуту
           </div>
         </div>
-
         <div id="forecast" class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--6-col">
-            <iframe src="https://docs.google.com/forms/d/1xfXD5njsXEv2-jZkJJ9ghmRoTNbJJj8l6VHKwXFiT9w/viewform?embedded=true" height="850" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+          <iframe src="https://docs.google.com/forms/d/1xfXD5njsXEv2-jZkJJ9ghmRoTNbJJj8l6VHKwXFiT9w/viewform?embedded=true" height="850" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
         </div>
-<!--
+        <!--
         <div class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col">
-            <iframe width="289.5" height="360.4177852348994" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1fQ2uFI9FxASABpOXmJ6_ZiIE7M38CcBs0wKMzpmLICQ/pubchart?oid=2063450333&amp;format=interactive"></iframe>
+          <iframe width="289.5" height="360.4177852348994" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1fQ2uFI9FxASABpOXmJ6_ZiIE7M38CcBs0wKMzpmLICQ/pubchart?oid=2063450333&amp;format=interactive"></iframe>
         </div>
--->
-<!--
+        -->
+        <!--
         <div class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--4-col">
           <canvas id="myCanvas" width="592" height="800" style="padding-top: 9px; padding-left: 9px; zoom: 58%;"></canvas>
           <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
           <script type="text/javascript" src="//cdn.rawgit.com/my8bit/5b87c550ebbc36da202e/raw/e1be28b1777300ef5d088b1a945a477712e86578/bundle.js"></script>
         </div>
--->
-        <div style="padding: 10px;" class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--6-col">
+        -->
+        <div id="comments" style="padding: 10px;" class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--6-col">
           <div id="disqus_thread"></div>
         </div>
-        </div>
+      </div>
       <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__top-section">
+          <p>Сервис blackmarket.in.ua не яявляется участником сделок и предлагает информацию из открытых источников с сылками на сами источники.</p>
+        </div>
         <div class="mdl-mini-footer__left-section">
           <div class="mdl-logo">blackmarket.in.ua</div>
           <ul class="mdl-mini-footer__link-list">
             <li><a href="#">Помощь</a></li>
             <li><a href="#">О сайте</a></li>
-            <li><div class="addthis_sharing_toolbox"></div></li>
           </ul>
+        </div>
+        <div class="mdl-mini-footer__right-section">
+          <div class="addthis_sharing_toolbox"></div>
         </div>
       </footer>
       </main>
       <div class="mdl-layout__obfuscator"></div>
       <script>
       var disqus_config = function () {
-        this.page.url = "http://blackmarket.in.ua";
-        this.page.identifier = "blackmarket";
+      this.page.url = "http://blackmarket.in.ua";
+      this.page.identifier = "blackmarket";
       };
       (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
