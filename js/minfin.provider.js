@@ -14,7 +14,7 @@ select * from html where url='http://minfin.com.ua/currency/auction/usd/sell/kie
                     data: {
                         q: "select * from html where " +
                             "url='http://minfin.com.ua/currency/auction/" + currency + "/sell/kiev'" +
-                            " and xpath='/html/body/div[2]/div[1]/div[2]/div[2]/div[3]/div[last()]'",
+                            " and xpath='//div[@class=\"au-deals-list\"]'",
                         //" and xpath='/html/body'",
                         format: "json"
                     }
@@ -26,7 +26,7 @@ select * from html where url='http://minfin.com.ua/currency/auction/usd/sell/kie
                         data: {
                             q: "select * from html where " +
                                 "url='http://minfin.com.ua/currency/auction/" + currency + "/buy/kiev'" +
-                                " and xpath='//html/body/div[2]/div[1]/div[2]/div[2]/div[3]/div[last()]'",
+                                " and xpath='//div[@class=\"au-deals-list\"]'",
                             //" and xpath='//html/body'",
                             format: "json"
                         }
