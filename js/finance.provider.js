@@ -125,7 +125,7 @@ select * from html where url='http://minfin.com.ua/currency/auction/usd/sell/kie
                 var Loader = {};
                 Loader.load = function(data) {
                     var allData = data.currency.map(function(el, idx) {
-                        if (el === "USD" && data.location[idx][0] === 2) {
+                        if (el === "USD" && data.location[idx] === 2) {
                             return {
                                 time: data.time[idx],
                                 amount: data.amount[idx],
@@ -144,12 +144,10 @@ select * from html where url='http://minfin.com.ua/currency/auction/usd/sell/kie
                                 rate: el.rate
                             }
                         }
-                        // body...
                     }).filter(function(el) {
                         return !!el;
                     });
                     var bidData = allData.map(function(el) {
-                        // body...
                         if (!el.type) {
                             return {
                                 time: el.time,
